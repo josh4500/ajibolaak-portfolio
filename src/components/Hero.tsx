@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Download } from "lucide-react";
 import { profile } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { ParticleField } from "./ParticleField";
@@ -6,8 +6,8 @@ import { ParticleField } from "./ParticleField";
 const facts = [
   { label: "Focus", value: "Mobile engineering" },
   { label: "Mobile", value: "Flutter · Dart" },
-  { label: "Backend", value: "Go · C#" },
-  { label: "Data", value: "PostgreSQL · Redis" },
+  { label: "Backend", value: "C# · NestJS" },
+  { label: "Based", value: profile.location },
 ];
 
 export function Hero() {
@@ -61,11 +61,11 @@ export function Hero() {
             {profile.resumeUrl && (
               <a
                 href={profile.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-3 text-sm font-medium text-muted underline-offset-4 transition hover:text-foreground hover:underline"
+                download="Ajibola-Akinmosin-Resume.pdf"
+                className="group inline-flex items-center gap-2 px-3 py-3 text-sm font-medium text-muted transition hover:text-foreground"
               >
-                Résumé
+                <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" aria-hidden />
+                Download résumé
               </a>
             )}
           </div>

@@ -11,22 +11,24 @@ npm run dev
 
 Open http://localhost:3000.
 
-## Make it yours
+## Updating content
 
-All content lives in **`src/data/profile.ts`**. Replace every `[bracketed]` placeholder and `TODO`:
+All site content lives in **`src/data/profile.ts`**: name, intro, links, About text, skills, featured projects and experience. It mirrors the résumé, so update both together.
 
-- `name`: your full name. The logo initials are generated from it.
-- `email`, `github`, `linkedin`
 - `calendlyUrl`: your Calendly booking link. When set, the "Let's talk" button opens a menu with **Book a call** and **Send an email**, and the Contact section and mobile menu show both options. Leave it empty to offer email only.
-- `about`: your background and engineering philosophy
-- `projects`: title, problem statement, tech tags, highlights, and `repo`/`live` links (leave a link empty to hide it)
-- `experience`: role, company, dates, summary
-
-Only add real projects, companies and numbers. Add or remove entries in the arrays as needed.
-
-**Résumé:** put your PDF at `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`. The Résumé button stays hidden while `resumeUrl` is empty.
+- `projects`: add personal or open-source work with `repo`/`live` links (empty links are hidden).
 
 **Theme:** monochrome black and white, dark by default. Visitors can switch to light mode with the sun/moon toggle. Colors are defined as CSS variables in `src/app/globals.css`.
+
+## Résumé
+
+The downloadable résumé (`public/resume.pdf`) is generated from **`resume/resume.html`**:
+
+1. Edit `resume/resume.html`.
+2. Run `npm run resume` (uses Google Chrome to print the PDF).
+3. Open `public/resume.pdf` to check it still fits on one page, then commit and push.
+
+The public version lists hello@ajibolaak.dev and the website instead of a phone number.
 
 ## Blog (Medium)
 

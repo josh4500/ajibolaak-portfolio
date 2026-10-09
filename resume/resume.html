@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ajibola Akinmosin — Résumé</title>
+    <!-- Source for public/resume.pdf. Edit this file, then run `npm run resume`. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        font-family: Inter, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 8.6pt;
+        line-height: 1.34;
+        color: #18181b;
+        background: #fff;
+      }
+      .page {
+        width: 210mm;
+        padding: 10mm 14mm 8mm;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 10mm;
+        padding-bottom: 4mm;
+        border-bottom: 1.4pt solid #09090b;
+      }
+      h1 {
+        font-size: 25pt;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        color: #09090b;
+      }
+      .role {
+        margin-top: 2.2mm;
+        font-size: 12pt;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: #3f3f46;
+      }
+      .role em {
+        font-family: "Instrument Serif", Georgia, serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1.12em;
+        color: #09090b;
+      }
+      .contact {
+        text-align: right;
+        font-size: 7.9pt;
+        line-height: 1.65;
+        color: #3f3f46;
+        white-space: nowrap;
+      }
+
+      /* Sections */
+      section {
+        margin-top: 4.2mm;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 3mm;
+        margin-bottom: 2.2mm;
+        font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+        font-size: 7.4pt;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #71717a;
+      }
+      h2 b {
+        color: #09090b;
+        font-weight: 500;
+      }
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 0.6pt;
+        background: #e4e4e7;
+      }
+      .summary {
+        font-size: 9.2pt;
+        line-height: 1.45;
+        color: #27272a;
+      }
+
+      /* Jobs */
+      .job {
+        margin-bottom: 2.7mm;
+        break-inside: avoid;
+      }
+      .job:last-child {
+        margin-bottom: 0;
+      }
+      .job-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      .job-title {
+        font-size: 10pt;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: #09090b;
+      }
+      .job-title span {
+        font-weight: 400;
+        color: #52525b;
+      }
+      .dates {
+        font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+        font-size: 7.6pt;
+        color: #71717a;
+        white-space: nowrap;
+      }
+      ul {
+        margin-top: 1.2mm;
+        list-style: none;
+      }
+      li {
+        position: relative;
+        padding-left: 3.6mm;
+        margin-top: 0.45mm;
+        color: #3f3f46;
+      }
+      li::before {
+        content: "";
+        position: absolute;
+        left: 0.4mm;
+        top: 0.62em;
+        width: 1.3mm;
+        height: 0.6pt;
+        background: #a1a1aa;
+      }
+      li strong {
+        font-weight: 600;
+        color: #09090b;
+      }
+
+      /* Skills & education */
+      .grid {
+        display: grid;
+        grid-template-columns: 27mm 1fr;
+        row-gap: 1.3mm;
+        column-gap: 4mm;
+      }
+      .grid dt {
+        font-weight: 600;
+        color: #09090b;
+      }
+      .grid dd {
+        color: #3f3f46;
+      }
+      .edu-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .edu-note {
+        margin-top: 0.8mm;
+        color: #52525b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div>
+          <h1>Ajibola Akinmosin</h1>
+          <p class="role">Senior <em>Mobile</em> &amp; Full-Stack Engineer</p>
+        </div>
+        <div class="contact mono">
+          <div>Lagos, Nigeria</div>
+          <div><a href="mailto:hello@ajibolaak.dev">hello@ajibolaak.dev</a></div>
+          <div><a href="https://ajibolaak.dev">ajibolaak.dev</a></div>
+          <div>
+            <a href="https://linkedin.com/in/ajibolaak">linkedin.com/in/ajibolaak</a> ·
+            <a href="https://github.com/josh4500">github.com/josh4500</a>
+          </div>
+        </div>
+      </header>
+
+      <section>
+        <h2><b>01</b> Summary</h2>
+        <p class="summary">
+          Senior mobile and full-stack engineer with 5+ years of experience building fintech, payments and secure
+          communication products. I specialise in cross-platform Flutter apps built on clean architecture, backed by
+          services in C# (ASP.NET Core) and TypeScript (NestJS), with a track record of measurable gains in reliability,
+          latency and delivery speed.
+        </p>
+      </section>
+
+      <section>
+        <h2><b>02</b> Experience</h2>
+
+        <div class="job">
+          <div class="job-head">
+            <p class="job-title">Mobile Engineer <span>· Busha (busha.io)</span></p>
+            <p class="dates">Aug 2025 – Present</p>
+          </div>
+          <ul>
+            <li>Build and maintain core mobile features in Flutter &amp; Dart, improving performance and user experience across iOS and Android.</li>
+            <li>Architect scalable UI components and integrate robust API workflows for crypto and financial transactions.</li>
+            <li>Partner with product and backend teams to deliver high reliability, sound state management and smooth performance.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <p class="job-title">Senior Software Developer <span>· Yousend Inc.</span></p>
+            <p class="dates">Aug 2025 – Present</p>
+          </div>
+          <ul>
+            <li>Architected a mono-repo with clean architecture layers (data, domain, presentation), <strong>cutting code duplication by 30%</strong> and enabling parallel development across 3+ payment feature teams.</li>
+            <li>Engineered real-time currency conversion and cross-border transaction flows with a <strong>99.9% success rate</strong>, reducing payment processing latency by 25% through optimised BLoC/Cubit state management.</li>
+            <li>Built reusable UI components and platform integrations (localisation, biometric auth, KYC compliance checks), <strong>accelerating feature delivery by 40%</strong> across iOS and Android.</li>
+            <li>Refactored legacy modules with dependency injection and use-case separation, <strong>cutting crash rates by 20%</strong> and raising test coverage on critical payment paths to 85%.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <p class="job-title">Software Engineer <span>· Opus Technology</span></p>
+            <p class="dates">May 2024 – Mar 2025</p>
+          </div>
+          <ul>
+            <li>Enhanced enterprise search for internal applications used across a large employee base, improving data-retrieval efficiency and productivity.</li>
+            <li>Developed secure Single Sign-On middleware with JWT validation and payload extraction, ensuring seamless authentication and regulatory compliance.</li>
+            <li>Optimised .NET Core redirect logic between client and server middleware, <strong>reducing latency by 1,500 ms</strong>.</li>
+            <li>Resolved 10+ critical React UI issues, including validation errors and component drift, <strong>reducing user-reported bugs by 50%</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <p class="job-title">Lead Software Engineer <span>· Presence Inc.</span></p>
+            <p class="dates">Mar 2022 – Mar 2024</p>
+          </div>
+          <ul>
+            <li>Designed and built a secure private messaging app in Flutter &amp; Dart, owning the UI and business logic for real-time communication.</li>
+            <li>Implemented end-to-end encryption using the Signal Protocol, RSA and related cryptographic techniques to protect user data.</li>
+            <li>Configured and deployed MQTT for message relaying, <strong>reducing messaging latency by 70%</strong>.</li>
+            <li>Engineered encrypted audio/video calling and secure image/video upload and download, improving user engagement.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <p class="job-title">Lead Engineer <span>· Centiiv</span></p>
+            <p class="dates">Oct 2020 – Feb 2022</p>
+          </div>
+          <ul>
+            <li>Built a fintech remittance platform end to end: a Flutter &amp; Dart client and a NestJS (TypeScript) backend.</li>
+            <li>Architected and scaled backend services for secure, high-volume transactions in line with financial regulations.</li>
+            <li>Extended the platform to B2B remittance (bulk transactions, corporate payments) and international transfers with cross-border payment gateways and real-time FX rate handling.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2><b>03</b> Skills</h2>
+        <dl class="grid">
+          <dt>Languages</dt>
+          <dd>Dart, C#, TypeScript / JavaScript, Java, Python</dd>
+          <dt>Mobile</dt>
+          <dd>Flutter, BLoC / Cubit, Clean Architecture, iOS &amp; Android, biometric auth, KYC integrations</dd>
+          <dt>Backend &amp; Web</dt>
+          <dd>ASP.NET Core, NestJS, React / Next.js, REST APIs, MQTT, JWT / SSO</dd>
+          <dt>Data &amp; Cloud</dt>
+          <dd>PostgreSQL, MongoDB, MySQL, Cassandra, AWS, Google Cloud, Docker, Linux, Git</dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2><b>04</b> Education</h2>
+        <div class="edu-head">
+          <p class="job-title">B.S. Computer Science <span>· Federal University Lokoja</span></p>
+          <p class="dates">Graduated Jan 2023 · GPA 4.12 / 5.0</p>
+        </div>
+        <p class="edu-note">
+          Coursework: Data Structures, Algorithms, Data Science, Machine Learning, Computer Architecture, Cryptography.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>

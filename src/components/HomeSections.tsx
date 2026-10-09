@@ -1,4 +1,4 @@
-import { ArrowUpRight, CalendarDays, Database, Mail, Server, Smartphone } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Database, Download, Mail, Server, Smartphone } from "lucide-react";
 import { experience, profile, projects, skills } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { Reveal } from "./Reveal";
@@ -89,7 +89,7 @@ export function Projects() {
           Selected <em className="accent-serif">work</em>.
         </>
       }
-      intro="Products I've designed, built and shipped across mobile and backend."
+      intro="Products I've designed, built and shipped across fintech, payments and secure messaging."
     >
       <ol className="space-y-5">
         {projects.map((p, i) => (
@@ -100,7 +100,10 @@ export function Projects() {
             className="group card-glow grid gap-8 rounded-2xl border border-border p-6 transition-colors hover:border-faint sm:p-10 md:grid-cols-[1fr_1fr]"
           >
             <div className="flex flex-col">
-              <span className="font-mono text-xs text-faint">{pad(i + 1)}</span>
+              <span className="font-mono text-xs text-faint">
+                {pad(i + 1)}
+                {p.company && <span className="text-muted"> · {p.company}</span>}
+              </span>
               <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
               <p className="mt-4 max-w-md leading-relaxed text-muted">{p.problem}</p>
               {(p.repo || p.live) && (
@@ -250,6 +253,15 @@ export function Contact() {
             >
               <LinkedinIcon className="h-4 w-4" /> LinkedIn
             </a>
+            {profile.resumeUrl && (
+              <a
+                href={profile.resumeUrl}
+                download="Ajibola-Akinmosin-Resume.pdf"
+                className="inline-flex items-center gap-2 transition hover:text-foreground"
+              >
+                <Download className="h-4 w-4" aria-hidden /> Résumé
+              </a>
+            )}
           </div>
         </div>
       </Reveal>
