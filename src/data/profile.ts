@@ -16,7 +16,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/ajibolaak",
   mediumHandle: "ajibolaak",
   // Your Calendly booking link, e.g. "https://calendly.com/your-name/30min". Leave empty to hide the "Book a call" options.
-  calendlyUrl: "",
+  calendlyUrl: "https://calendly.com/ajibolaak",
   // Generated from resume/resume.html with `npm run resume`. Leave empty to hide the Résumé buttons.
   resumeUrl: "/resume.pdf",
   about: [
