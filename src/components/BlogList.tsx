@@ -27,8 +27,8 @@ export function BlogList({ posts }: { posts: MediumPost[] }) {
               onClick={() => setActive(t)}
               className={`rounded-full border px-3 py-1 text-sm transition ${
                 active === t
-                  ? "border-accent bg-accent text-white dark:text-zinc-950"
-                  : "border-border text-muted hover:border-accent hover:text-foreground"
+                  ? "border-accent bg-accent text-accent-contrast"
+                  : "border-border text-muted hover:border-muted hover:text-foreground"
               }`}
             >
               {t ?? "All"}

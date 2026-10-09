@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
-import { About, Contact, Experience, Projects } from "@/components/HomeSections";
+import { About, Contact, Experience, Projects, Skills } from "@/components/HomeSections";
 import { Section } from "@/components/Section";
 import { BlogCard, EmptyBlog } from "@/components/BlogCard";
 import { getMediumPosts, mediumProfileUrl } from "@/lib/medium";
@@ -8,7 +8,7 @@ import { getMediumPosts, mediumProfileUrl } from "@/lib/medium";
 async function LatestWriting() {
   const posts = (await getMediumPosts()).slice(0, 3);
   return (
-    <Section id="writing" title="Latest writing">
+    <Section id="writing" eyebrow="Blog" title="Latest writing">
       {posts.length === 0 ? (
         <EmptyBlog profileUrl={mediumProfileUrl} />
       ) : (
@@ -20,7 +20,7 @@ async function LatestWriting() {
               </li>
             ))}
           </ul>
-          <Link href="/blog" className="mt-8 inline-block font-medium text-accent hover:underline">
+          <Link href="/blog" className="mt-8 inline-block font-medium underline-offset-4 hover:underline">
             All articles →
           </Link>
         </>
@@ -34,6 +34,7 @@ export default function Home() {
     <>
       <Hero />
       <About />
+      <Skills />
       <Projects />
       <Experience />
       <LatestWriting />

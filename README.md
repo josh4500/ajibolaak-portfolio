@@ -1,6 +1,6 @@
 # ajibolaak.dev
 
-Personal portfolio + blog. Built with Next.js 16, Tailwind CSS v4 and TypeScript, deployed on Vercel.
+Personal portfolio + blog. Built with Next.js 16, Tailwind CSS v4, TypeScript and lucide-react, deployed on Vercel.
 
 ## Run locally
 
@@ -13,13 +13,19 @@ Open http://localhost:3000.
 
 ## Make it yours
 
-All content lives in **`src/data/profile.ts`**. Replace every `TODO`:
+All content lives in **`src/data/profile.ts`**. Replace every `[bracketed]` placeholder and `TODO`:
 
-- name, title, pitch, location, email, about paragraphs
-- social links
-- skills, projects, experience
+- `name`: your full name. The logo initials are generated from it.
+- `email`, `github`, `linkedin`
+- `about`: your background and engineering philosophy
+- `projects`: title, problem statement, tech tags, highlights, and `repo`/`live` links (leave a link empty to hide it)
+- `experience`: role, company, dates, summary
+
+Only add real projects, companies and numbers. Add or remove entries in the arrays as needed.
 
 **Résumé:** put your PDF at `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`. The Résumé button stays hidden while `resumeUrl` is empty.
+
+**Theme:** monochrome black and white, dark by default. Visitors can switch to light mode with the sun/moon toggle. Colors are defined as CSS variables in `src/app/globals.css`.
 
 ## Blog (Medium)
 

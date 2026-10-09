@@ -2,24 +2,27 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Monochrome palette: the "accent" is simply the strongest foreground tone. */
 :root {
-  --background: #fafafa;
-  --surface: #ffffff;
-  --foreground: #18181b;
+  --background: #ffffff;
+  --surface: #fafafa;
+  --foreground: #09090b;
   --muted: #52525b;
   --border: #e4e4e7;
-  --accent: #4f46e5;
-  --accent-soft: #eef2ff;
+  --accent: #09090b;
+  --accent-contrast: #ffffff;
+  --accent-soft: #f4f4f5;
 }
 
 .dark {
   --background: #09090b;
-  --surface: #18181b;
-  --foreground: #f4f4f5;
+  --surface: #111113;
+  --foreground: #fafafa;
   --muted: #a1a1aa;
   --border: #27272a;
-  --accent: #818cf8;
-  --accent-soft: #1e1b4b;
+  --accent: #fafafa;
+  --accent-contrast: #09090b;
+  --accent-soft: #1c1c1f;
 }
 
 @theme inline {
@@ -29,6 +32,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
   --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-inter);
 }
@@ -40,6 +44,12 @@ html {
 
 html.dark {
   color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {

@@ -1,87 +1,79 @@
-// Everything on the site comes from this file. Replace the TODO values with your own.
+// Everything on the site comes from this file. Replace every [bracketed] placeholder with your own details.
+// Only add real projects, companies and numbers — empty `repo`/`live` fields simply hide those links.
 
 export const site = {
   url: "https://ajibolaak.dev",
 };
 
 export const profile = {
-  name: "Ajibola", // TODO: your full name
-  title: "Software Developer", // TODO: e.g. "Full-Stack Engineer"
-  pitch:
-    "I build fast, reliable web applications and enjoy turning complex problems into simple, well-crafted products.", // TODO
-  location: "Lagos, Nigeria", // TODO
-  email: "hello@ajibolaak.dev", // TODO: an address you actually check
+  name: "Ajibola", // TODO: your full name — the logo initials are generated from it
+  role: "Senior Mobile & Full-Stack Engineer",
+  intro:
+    "I build cross-platform mobile apps with Flutter and Dart, and the fast, reliable backends behind them in Go and C#.",
+  email: "hello@ajibolaak.dev", // TODO: your professional email
+  github: "https://github.com/ajibolaak", // TODO: confirm
+  linkedin: "https://www.linkedin.com/in/ajibolaak", // TODO: confirm
+  mediumHandle: "ajibolaak",
   // Path or URL to your résumé, e.g. "/resume.pdf" after dropping the file in /public. Leave empty to hide the button.
   resumeUrl: "",
-  mediumHandle: "ajibolaak",
   about: [
-    "TODO: A short paragraph about who you are, what you work on, and what you care about as an engineer.",
-    "TODO: A second paragraph about your background, current focus, or what you're looking for next.",
-  ],
-  socials: [
-    { label: "GitHub", href: "https://github.com/ajibolaak" }, // TODO: confirm handles
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/ajibolaak" },
-    { label: "Medium", href: "https://medium.com/@ajibolaak" },
-    { label: "X", href: "https://x.com/ajibolaak" },
+    "[A short overview of your background: how you got into software engineering and how long you've been building products.]",
+    "My focus is mobile client engineering: cross-platform architecture in Flutter, predictable state management, and apps that feel native on every platform. On the server side I build concurrent, type-safe systems in Go and C# that keep those apps fast and dependable.",
+    "[Your engineering philosophy in a sentence or two: what you value in code, teams and products.]",
   ],
 };
 
-export const skills: { category: string; items: string[] }[] = [
-  { category: "Languages", items: ["TypeScript", "JavaScript", "Python", "SQL"] },
-  { category: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "HTML & CSS"] },
-  { category: "Backend", items: ["Node.js", "PostgreSQL", "REST APIs", "GraphQL"] },
-  { category: "Tools", items: ["Git", "Docker", "Vercel", "CI/CD"] },
+export const skills: { category: string; icon: "mobile" | "backend" | "data"; items: string[] }[] = [
+  {
+    category: "Mobile",
+    icon: "mobile",
+    items: ["Flutter", "Dart", "Native Platform Channels", "State Management (Bloc/Cubit)", "Automated Testing"],
+  },
+  {
+    category: "Backend & APIs",
+    icon: "backend",
+    items: ["Go", "C#", "RESTful APIs", "Microservices", "gRPC / Event-Driven Patterns"],
+  },
+  {
+    category: "Databases & DevOps",
+    icon: "data",
+    items: ["PostgreSQL", "Redis", "Docker", "Git", "CI/CD Pipelines"],
+  },
 ];
 
 export type Project = {
   title: string;
-  description: string;
+  problem: string;
   tech: string[];
+  highlights: string[];
   repo?: string;
   live?: string;
 };
 
 export const projects: Project[] = [
   {
-    title: "Project One", // TODO
-    description: "What it does, who it's for, and the most interesting problem you solved building it.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL"],
-    repo: "https://github.com/ajibolaak",
-    live: "https://ajibolaak.dev",
+    title: "[Project 1 Title]",
+    problem: "[Short problem statement: what the project solves and for whom.]",
+    tech: ["Flutter", "Go", "PostgreSQL"],
+    highlights: ["[Key feature or highlight]", "[Key feature or highlight]"],
+    repo: "", // e.g. "https://github.com/you/project"
+    live: "",
   },
   {
-    title: "Project Two", // TODO
-    description: "A short, outcome-focused summary. Numbers help: users, speed-ups, revenue, stars.",
-    tech: ["React", "Node.js", "Docker"],
-    repo: "https://github.com/ajibolaak",
-  },
-  {
-    title: "Project Three", // TODO
-    description: "Side projects, open-source contributions and experiments all count.",
-    tech: ["Python", "FastAPI"],
-    repo: "https://github.com/ajibolaak",
+    title: "[Project 2 Title]",
+    problem: "[Short problem statement: what the project solves and for whom.]",
+    tech: ["Flutter", "C#", "PostgreSQL"],
+    highlights: ["[Key feature or highlight]", "[Key feature or highlight]"],
+    repo: "",
+    live: "",
   },
 ];
 
-export const experience: {
-  role: string;
-  company: string;
-  period: string;
-  points: string[];
-}[] = [
+export const experience: { role: string; company: string; period: string; summary: string }[] = [
   {
-    role: "Software Developer", // TODO
-    company: "Company Name",
-    period: "2024 — Present",
-    points: [
-      "Shipped a feature that improved something measurable by X%.",
-      "Owned the architecture of a key service used by N customers.",
-    ],
-  },
-  {
-    role: "Junior Developer", // TODO
-    company: "Previous Company",
-    period: "2022 — 2024",
-    points: ["Built and maintained internal tools used across the team."],
+    role: "[Role Title]",
+    company: "[Company]",
+    period: "[Dates]",
+    summary: "[Brief summary of key achievements.]",
   },
 ];

@@ -11,12 +11,12 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const description = `${profile.name} — ${profile.title}. ${profile.pitch}`;
+const description = `${profile.name} — ${profile.role}. ${profile.intro}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${profile.name} · ${profile.title}`,
+    default: `${profile.name} · ${profile.role}`,
     template: `%s · ${profile.name}`,
   },
   description,
@@ -24,19 +24,19 @@ export const metadata: Metadata = {
     type: "website",
     url: site.url,
     siteName: profile.name,
-    title: `${profile.name} · ${profile.title}`,
+    title: `${profile.name} · ${profile.role}`,
     description,
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
 };
 
-// Runs before paint so the saved/system theme is applied without a flash.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d)}catch(e){}})()`;
+// Dark by default; runs before paint so a saved light preference applies without a flash.
+const themeScript = `(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.remove('dark')}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} dark h-full antialiased`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
