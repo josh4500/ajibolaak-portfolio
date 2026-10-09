@@ -13,17 +13,27 @@ export default async function BlogPage() {
   const posts = await getMediumPosts();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Blog</h1>
-      <p className="mt-3 max-w-2xl text-muted">
+    <div className="mx-auto max-w-6xl px-4 pt-36 pb-20 sm:px-6 sm:pt-40">
+      <p className="mb-5 font-mono text-xs tracking-widest text-muted uppercase">
+        <span className="text-foreground">Blog</span> / Writing
+      </p>
+      <h1 className="text-5xl leading-[0.95] font-semibold tracking-[-0.04em] sm:text-7xl">
+        Notes &amp; <em className="accent-serif">articles</em>.
+      </h1>
+      <p className="mt-6 max-w-2xl text-lg text-muted">
         Thoughts on software, tools and lessons learned. Articles are published on{" "}
-        <a href={mediumProfileUrl} target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-4">
+        <a
+          href={mediumProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-foreground underline underline-offset-4"
+        >
           Medium
         </a>
         .
       </p>
 
-      <div className="mt-10">
+      <div className="mt-14 border-t border-border pt-10">
         {posts.length === 0 ? <EmptyBlog profileUrl={mediumProfileUrl} /> : <BlogList posts={posts} />}
       </div>
 
@@ -32,7 +42,7 @@ export default async function BlogPage() {
           href={mediumProfileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-10 inline-block rounded-lg border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition hover:border-muted"
+          className="mt-12 inline-flex rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
         >
           View all on Medium ↗
         </a>

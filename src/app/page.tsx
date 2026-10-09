@@ -8,7 +8,17 @@ import { getMediumPosts, mediumProfileUrl } from "@/lib/medium";
 async function LatestWriting() {
   const posts = (await getMediumPosts()).slice(0, 3);
   return (
-    <Section id="writing" eyebrow="Blog" title="Latest writing">
+    <Section
+      id="writing"
+      index="05"
+      label="Blog"
+      title={
+        <>
+          Latest <em className="accent-serif">writing</em>.
+        </>
+      }
+      intro="Notes on mobile, backend and the craft of shipping software, published on Medium."
+    >
       {posts.length === 0 ? (
         <EmptyBlog profileUrl={mediumProfileUrl} />
       ) : (
@@ -20,7 +30,10 @@ async function LatestWriting() {
               </li>
             ))}
           </ul>
-          <Link href="/blog" className="mt-8 inline-block font-medium underline-offset-4 hover:underline">
+          <Link
+            href="/blog"
+            className="mt-10 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
+          >
             All articles →
           </Link>
         </>

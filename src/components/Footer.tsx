@@ -12,12 +12,21 @@ async function getYear() {
 export async function Footer() {
   const year = await getYear();
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:px-6">
-        <p>
-          © {year} {profile.name}. All rights reserved.
+    <footer className="overflow-hidden border-t border-border">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex flex-col items-center justify-between gap-4 py-8 font-mono text-xs text-muted sm:flex-row">
+          <p>
+            © {year} {profile.name}. All rights reserved.
+          </p>
+          <SocialLinks size="h-4 w-4" />
+        </div>
+        {/* Oversized wordmark that bleeds off the bottom edge. */}
+        <p
+          className="-mb-[0.22em] text-center text-[19vw] leading-none font-semibold tracking-[-0.06em] text-accent-soft select-none lg:text-[13rem]"
+          aria-hidden
+        >
+          ajibolaak
         </p>
-        <SocialLinks size="h-4 w-4" />
       </div>
     </footer>
   );

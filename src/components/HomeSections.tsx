@@ -1,19 +1,34 @@
-import { ArrowUpRight, Check, Database, Mail, Server, Smartphone } from "lucide-react";
+import { ArrowUpRight, Database, Mail, Server, Smartphone } from "lucide-react";
 import { experience, profile, projects, skills } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
+import { Reveal } from "./Reveal";
 import { Section, Tag } from "./Section";
 
 const skillIcons = { mobile: Smartphone, backend: Server, data: Database };
-
-const card = "rounded-xl border border-border bg-surface transition hover:border-muted";
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export function About() {
+  const [first, ...rest] = profile.about;
   return (
-    <Section id="about" eyebrow="About" title="Mobile first, full-stack throughout">
-      <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-muted">
-        {profile.about.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
+    <Section
+      id="about"
+      index="01"
+      label="About"
+      title={
+        <>
+          Mobile first, <em className="accent-serif">full-stack</em> throughout.
+        </>
+      }
+    >
+      <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+        <Reveal>
+          <p className="text-2xl leading-snug font-medium tracking-tight text-pretty sm:text-3xl">{first}</p>
+        </Reveal>
+        <Reveal delay={120} className="space-y-5 leading-relaxed text-muted">
+          {rest.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </Reveal>
       </div>
     </Section>
   );
@@ -21,27 +36,41 @@ export function About() {
 
 export function Skills() {
   return (
-    <Section id="skills" eyebrow="Skills" title="Tools I work with">
-      <div className="grid gap-5 md:grid-cols-3">
-        {skills.map((group) => {
+    <Section
+      id="skills"
+      index="02"
+      label="Skills"
+      title={
+        <>
+          The <em className="accent-serif">toolkit</em>.
+        </>
+      }
+      intro="From the widget tree to the database: the tools I reach for to ship and scale."
+    >
+      <div className="grid overflow-hidden rounded-2xl border border-border md:grid-cols-3">
+        {skills.map((group, gi) => {
           const Icon = skillIcons[group.icon];
           return (
-            <div key={group.category} className={`${card} p-6`}>
-              <div className="mb-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-background">
+            <Reveal
+              key={group.category}
+              delay={gi * 100}
+              className={`card-glow p-6 sm:p-8 ${gi > 0 ? "border-t border-border md:border-t-0 md:border-l" : ""}`}
+            >
+              <div className="mb-8 flex items-center justify-between">
+                <span className="grid h-11 w-11 place-items-center rounded-full border border-border bg-background">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
-                <h3 className="font-semibold">{group.category}</h3>
+                <span className="font-mono text-xs text-faint">{pad(gi + 1)}</span>
               </div>
-              <ul className="space-y-2.5 text-sm text-muted">
+              <h3 className="mb-5 text-xl font-semibold tracking-tight">{group.category}</h3>
+              <ul className="divide-y divide-border border-t border-border">
                 {group.items.map((s) => (
-                  <li key={s} className="flex items-center gap-2.5">
-                    <span className="h-1 w-1 shrink-0 rounded-full bg-muted" aria-hidden />
+                  <li key={s} className="py-2.5 text-sm text-muted">
                     {s}
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           );
         })}
       </div>
@@ -51,69 +80,110 @@ export function Skills() {
 
 export function Projects() {
   return (
-    <Section id="projects" eyebrow="Projects" title="Featured work">
-      <ul className="grid gap-5 md:grid-cols-2">
-        {projects.map((p) => (
-          <li key={p.title} className={`${card} flex flex-col p-6`}>
-            <h3 className="text-lg font-semibold">{p.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{p.problem}</p>
-
-            {p.highlights.length > 0 && (
-              <ul className="mt-5 flex-1 space-y-2 text-sm">
-                {p.highlights.map((h, i) => (
-                  <li key={i} className="flex gap-2.5">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-muted" aria-hidden />
-                    <span>{h}</span>
+    <Section
+      id="projects"
+      index="03"
+      label="Projects"
+      title={
+        <>
+          Selected <em className="accent-serif">work</em>.
+        </>
+      }
+      intro="Products I've designed, built and shipped across mobile and backend."
+    >
+      <ol className="space-y-5">
+        {projects.map((p, i) => (
+          <Reveal
+            as="li"
+            key={p.title}
+            delay={i * 80}
+            className="group card-glow grid gap-8 rounded-2xl border border-border p-6 transition-colors hover:border-faint sm:p-10 md:grid-cols-[1fr_1fr]"
+          >
+            <div className="flex flex-col">
+              <span className="font-mono text-xs text-faint">{pad(i + 1)}</span>
+              <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
+              <p className="mt-4 max-w-md leading-relaxed text-muted">{p.problem}</p>
+              {(p.repo || p.live) && (
+                <div className="mt-auto flex flex-wrap gap-3 pt-8 text-sm font-medium">
+                  {p.repo && (
+                    <a
+                      href={p.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 transition hover:border-foreground"
+                    >
+                      <GithubIcon className="h-4 w-4" /> Repository
+                    </a>
+                  )}
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-accent-contrast transition hover:opacity-85"
+                    >
+                      Live Demo <ArrowUpRight className="h-4 w-4" aria-hidden />
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col justify-between gap-8">
+              {p.highlights.length > 0 && (
+                <div>
+                  <p className="mb-3 font-mono text-[11px] tracking-widest text-faint uppercase">Highlights</p>
+                  <ul className="divide-y divide-border border-y border-border">
+                    {p.highlights.map((h, hi) => (
+                      <li key={hi} className="flex gap-4 py-3 text-sm">
+                        <span className="font-mono text-xs text-faint">{pad(hi + 1)}</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <ul className="flex flex-wrap gap-2">
+                {p.tech.map((t) => (
+                  <li key={t}>
+                    <Tag>{t}</Tag>
                   </li>
                 ))}
               </ul>
-            )}
-
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {p.tech.map((t) => (
-                <li key={t}>
-                  <Tag>{t}</Tag>
-                </li>
-              ))}
-            </ul>
-
-            {(p.repo || p.live) && (
-              <div className="mt-5 flex gap-5 border-t border-border pt-4 text-sm font-medium">
-                {p.repo && (
-                  <a href={p.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:underline">
-                    <GithubIcon className="h-4 w-4" /> Repository
-                  </a>
-                )}
-                {p.live && (
-                  <a href={p.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:underline">
-                    Live Demo <ArrowUpRight className="h-4 w-4" aria-hidden />
-                  </a>
-                )}
-              </div>
-            )}
-          </li>
+            </div>
+          </Reveal>
         ))}
-      </ul>
+      </ol>
     </Section>
   );
 }
 
 export function Experience() {
   return (
-    <Section id="experience" eyebrow="Experience" title="Where I've worked">
-      <ol className="relative max-w-3xl space-y-10 border-l border-border pl-8">
-        {experience.map((job) => (
-          <li key={`${job.company}-${job.role}`} className="relative">
-            <span
-              className="absolute top-1.5 -left-[37px] h-2.5 w-2.5 rounded-full bg-foreground ring-4 ring-background"
-              aria-hidden
-            />
-            <p className="text-sm text-muted">{job.period}</p>
-            <h3 className="mt-1 text-lg font-semibold">
-              {job.role} <span className="font-normal text-muted">· {job.company}</span>
-            </h3>
-            <p className="mt-2 leading-relaxed text-muted">{job.summary}</p>
-          </li>
+    <Section
+      id="experience"
+      index="04"
+      label="Experience"
+      title={
+        <>
+          Where I&apos;ve <em className="accent-serif">worked</em>.
+        </>
+      }
+    >
+      <ol className="border-t border-border">
+        {experience.map((job, i) => (
+          <Reveal
+            as="li"
+            key={`${job.company}-${job.role}`}
+            delay={i * 80}
+            className="grid gap-3 border-b border-border py-8 md:grid-cols-[200px_1fr_1fr] md:gap-10"
+          >
+            <p className="font-mono text-xs tracking-wide text-muted uppercase md:pt-1.5">{job.period}</p>
+            <div>
+              <h3 className="text-xl font-semibold tracking-tight">{job.role}</h3>
+              <p className="mt-1 text-muted">{job.company}</p>
+            </div>
+            <p className="leading-relaxed text-muted">{job.summary}</p>
+          </Reveal>
         ))}
       </ol>
     </Section>
@@ -122,28 +192,49 @@ export function Experience() {
 
 export function Contact() {
   return (
-    <Section id="contact" eyebrow="Contact" title="Let's build something together">
-      <div className={`${card} p-8 sm:p-12`}>
-        <p className="max-w-xl text-lg leading-relaxed text-muted">
-          Have a mobile product, backend system or collaboration in mind? I&apos;d like to hear about it. Email is the
-          fastest way to reach me.
-        </p>
-        <a
-          href={`mailto:${profile.email}`}
-          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast transition hover:opacity-90"
-        >
-          <Mail className="h-4 w-4" aria-hidden />
-          {profile.email}
-        </a>
-        <div className="mt-6 flex gap-5 text-sm text-muted">
-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 transition hover:text-foreground">
-            <GithubIcon className="h-4 w-4" /> GitHub
+    <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+      <Reveal>
+        <div className="card-glow relative isolate overflow-hidden rounded-3xl border border-border px-6 py-16 text-center sm:px-12 sm:py-24">
+          <div className="bg-dots absolute inset-0 -z-10 opacity-70" aria-hidden />
+          <p className="font-mono text-xs tracking-widest text-muted uppercase">
+            <span className="text-foreground">06</span> / Contact
+          </p>
+          <h2
+            id="contact-title"
+            className="mx-auto mt-6 max-w-3xl text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl"
+          >
+            Let&apos;s build something <em className="accent-serif">together</em>.
+          </h2>
+          <p className="mx-auto mt-6 max-w-lg text-muted">
+            Have a mobile product, backend system or collaboration in mind? Email is the fastest way to reach me.
+          </p>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-accent-contrast transition hover:opacity-85"
+          >
+            <Mail className="h-4 w-4" aria-hidden />
+            {profile.email}
           </a>
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 transition hover:text-foreground">
-            <LinkedinIcon className="h-4 w-4" /> LinkedIn
-          </a>
+          <div className="mt-8 flex justify-center gap-6 font-mono text-xs text-muted">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 transition hover:text-foreground"
+            >
+              <GithubIcon className="h-4 w-4" /> GitHub
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 transition hover:text-foreground"
+            >
+              <LinkedinIcon className="h-4 w-4" /> LinkedIn
+            </a>
+          </div>
         </div>
-      </div>
-    </Section>
+      </Reveal>
+    </section>
   );
 }

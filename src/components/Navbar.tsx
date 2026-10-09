@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { profile } from "@/data/profile";
 import { SocialLinks } from "./SocialLinks";
 import { ThemeToggle } from "./ThemeToggle";
@@ -26,6 +26,14 @@ const initials = profile.name
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Close the drawer on Escape and stop the page scrolling behind it.
   useEffect(() => {
@@ -41,25 +49,29 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Main">
-          <Link
-            href="/#home"
-            className="flex items-center gap-2.5 font-semibold tracking-tight"
-            aria-label={`${profile.name}, home`}
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent text-sm font-bold text-accent-contrast">
+      {/* Floating pill bar; gains a glassy surface once the page scrolls. */}
+      <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-6 sm:pt-4">
+        <nav
+          aria-label="Main"
+          className={`mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border pr-2 pl-2 transition-all duration-300 ${
+            scrolled
+              ? "border-border bg-background/70 shadow-[0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+              : "border-transparent bg-transparent"
+          }`}
+        >
+          <Link href="/#home" className="flex items-center gap-2.5 pl-1" aria-label={`${profile.name}, home`}>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-xs font-bold text-accent-contrast">
               {initials}
             </span>
-            <span className="hidden sm:inline">{profile.name}</span>
+            <span className="hidden font-semibold tracking-tight sm:inline">{profile.name}</span>
           </Link>
 
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center lg:flex">
             {links.map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="rounded-md px-3 py-2 text-sm text-muted transition hover:text-foreground"
+                  className="rounded-full px-3.5 py-2 text-sm text-muted transition hover:bg-accent-soft hover:text-foreground"
                 >
                   {l.label}
                 </Link>
@@ -69,13 +81,18 @@ export function Navbar() {
 
           <div className="flex items-center gap-1">
             <div className="hidden md:block">
-              <SocialLinks size="h-[18px] w-[18px]" />
+              <SocialLinks size="h-[17px] w-[17px]" />
             </div>
-            <span className="mx-1 hidden h-5 w-px bg-border md:block" aria-hidden />
             <ThemeToggle />
+            <Link
+              href="/#contact"
+              className="ml-1 hidden items-center gap-1 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition hover:opacity-85 sm:inline-flex"
+            >
+              Let&apos;s talk <ArrowUpRight className="h-4 w-4" aria-hidden />
+            </Link>
             <button
               type="button"
-              className="rounded-md p-2 text-muted transition hover:bg-accent-soft hover:text-foreground lg:hidden"
+              className="rounded-full p-2 text-muted transition hover:bg-accent-soft hover:text-foreground lg:hidden"
               aria-label="Open menu"
               aria-expanded={open}
               aria-controls="mobile-drawer"
@@ -87,9 +104,9 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile drawer — outside <header>, whose backdrop-blur would otherwise trap these fixed elements. */}
+      {/* Mobile drawer — outside <header> so the blurred bar can't trap these fixed elements. */}
       <div
-        className={`fixed inset-0 z-50 bg-black/60 transition-opacity lg:hidden ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity lg:hidden ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}
         onClick={() => setOpen(false)}
         aria-hidden
       />
@@ -99,35 +116,36 @@ export function Navbar() {
         aria-modal="true"
         aria-label="Menu"
         inert={!open}
-        className={`fixed inset-y-0 right-0 z-50 flex h-dvh w-72 max-w-[85vw] flex-col overflow-y-auto border-l border-border bg-background p-6 transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 flex h-dvh w-80 max-w-[88vw] flex-col overflow-y-auto border-l border-border bg-background p-6 transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold uppercase tracking-widest text-muted">Menu</span>
+          <span className="font-mono text-xs tracking-widest text-muted uppercase">Menu</span>
           <button
             type="button"
-            className="rounded-md p-2 text-muted transition hover:bg-accent-soft hover:text-foreground"
+            className="rounded-full p-2 text-muted transition hover:bg-accent-soft hover:text-foreground"
             aria-label="Close menu"
             onClick={() => setOpen(false)}
           >
             <X className="h-5 w-5" aria-hidden />
           </button>
         </div>
-        <ul className="mt-6 flex-1 space-y-1">
-          {links.map((l) => (
-            <li key={l.href}>
+        <ol className="mt-8 flex-1">
+          {links.map((l, i) => (
+            <li key={l.href} className="border-b border-border">
               <Link
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-3 text-lg text-muted transition hover:bg-accent-soft hover:text-foreground"
+                className="flex items-baseline gap-4 py-4 text-2xl font-medium tracking-tight transition hover:pl-1"
               >
+                <span className="font-mono text-xs text-faint">{String(i + 1).padStart(2, "0")}</span>
                 {l.label}
               </Link>
             </li>
           ))}
-        </ul>
-        <div className="border-t border-border pt-4">
+        </ol>
+        <div className="pt-6">
           <SocialLinks />
         </div>
       </div>
