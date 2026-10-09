@@ -11,7 +11,7 @@ export const profile = {
   intro:
     "I build cross-platform mobile apps with Flutter and Dart, and the fast, reliable backends behind them in Go and C#.",
   email: "hello@ajibolaak.dev", // TODO: your professional email
-  github: "https://github.com/ajibolaak", // TODO: confirm
+  github: "https://github.com/josh4500",
   linkedin: "https://www.linkedin.com/in/ajibolaak", // TODO: confirm
   mediumHandle: "ajibolaak",
   // Path or URL to your résumé, e.g. "/resume.pdf" after dropping the file in /public. Leave empty to hide the button.
