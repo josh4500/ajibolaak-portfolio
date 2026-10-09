@@ -85,7 +85,9 @@ export function Navbar() {
               <SocialLinks size="h-[17px] w-[17px]" />
             </div>
             <ThemeToggle />
-            <LetsTalk className="ml-1 hidden sm:block" />
+            <div className="ml-1 hidden sm:block">
+              <LetsTalk />
+            </div>
             <button
               type="button"
               className="rounded-full p-2 text-muted transition hover:bg-accent-soft hover:text-foreground lg:hidden"

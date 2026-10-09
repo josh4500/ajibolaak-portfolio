@@ -6,10 +6,10 @@ import { ArrowUpRight, CalendarDays, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
 
 const pill =
-  "inline-flex items-center gap-1 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition hover:opacity-85";
+  "inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition hover:opacity-85";
 
 /** Navbar CTA: a menu with "Book a call" and "Send an email", or a plain link to #contact without Calendly. */
-export function LetsTalk({ className = "" }: { className?: string }) {
+export function LetsTalk() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -27,14 +27,14 @@ export function LetsTalk({ className = "" }: { className?: string }) {
 
   if (!profile.calendlyUrl) {
     return (
-      <Link href="/#contact" className={`${pill} ${className}`}>
+      <Link href="/#contact" className={pill}>
         Let&apos;s talk <ArrowUpRight className="h-4 w-4" aria-hidden />
       </Link>
     );
   }
 
   return (
-    <div ref={ref} className={`relative ${className}`}>
+    <div ref={ref} className="relative">
       <button
         type="button"
         className={pill}
