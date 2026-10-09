@@ -7,6 +7,7 @@ import { profile } from "@/data/profile";
 import { SocialLinks } from "./SocialLinks";
 import { ThemeToggle } from "./ThemeToggle";
 import { ContactOptions, LetsTalk } from "./LetsTalk";
+import { LogoMark } from "./LogoMark";
 
 const links = [
   { href: "/#home", label: "Home" },
@@ -17,13 +18,6 @@ const links = [
   { href: "/blog", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ];
-
-const initials = profile.name
-  .split(/\s+/)
-  .map((w) => w[0])
-  .join("")
-  .slice(0, 2)
-  .toUpperCase();
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -60,10 +54,8 @@ export function Navbar() {
               : "border-transparent bg-transparent"
           }`}
         >
-          <Link href="/#home" className="flex items-center gap-2.5 pl-1" aria-label={`${profile.name}, home`}>
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-xs font-bold text-accent-contrast">
-              {initials}
-            </span>
+          <Link href="/#home" className="group flex items-center gap-2 pl-2" aria-label={`${profile.name}, home`}>
+            <LogoMark className="h-8 w-8 transition-transform duration-300 group-hover:-rotate-6" />
             <span className="hidden font-semibold tracking-tight sm:inline">{profile.name}</span>
           </Link>
 
