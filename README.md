@@ -17,6 +17,7 @@ All content lives in **`src/data/profile.ts`**. Replace every `[bracketed]` plac
 
 - `name`: your full name. The logo initials are generated from it.
 - `email`, `github`, `linkedin`
+- `calendlyUrl`: your Calendly booking link. When set, the "Let's talk" button opens a menu with **Book a call** and **Send an email**, and the Contact section and mobile menu show both options. Leave it empty to offer email only.
 - `about`: your background and engineering philosophy
 - `projects`: title, problem statement, tech tags, highlights, and `repo`/`live` links (leave a link empty to hide it)
 - `experience`: role, company, dates, summary

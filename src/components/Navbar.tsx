@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { profile } from "@/data/profile";
 import { SocialLinks } from "./SocialLinks";
 import { ThemeToggle } from "./ThemeToggle";
+import { ContactOptions, LetsTalk } from "./LetsTalk";
 
 const links = [
   { href: "/#home", label: "Home" },
@@ -84,12 +85,7 @@ export function Navbar() {
               <SocialLinks size="h-[17px] w-[17px]" />
             </div>
             <ThemeToggle />
-            <Link
-              href="/#contact"
-              className="ml-1 hidden items-center gap-1 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition hover:opacity-85 sm:inline-flex"
-            >
-              Let&apos;s talk <ArrowUpRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <LetsTalk className="ml-1 hidden sm:block" />
             <button
               type="button"
               className="rounded-full p-2 text-muted transition hover:bg-accent-soft hover:text-foreground lg:hidden"
@@ -146,7 +142,13 @@ export function Navbar() {
           ))}
         </ol>
         <div className="pt-6">
-          <SocialLinks />
+          <p className="mb-2 font-mono text-xs tracking-widest text-muted uppercase">Let&apos;s talk</p>
+          <div className="-mx-3">
+            <ContactOptions onSelect={() => setOpen(false)} />
+          </div>
+          <div className="mt-4 border-t border-border pt-4">
+            <SocialLinks />
+          </div>
         </div>
       </div>
     </>

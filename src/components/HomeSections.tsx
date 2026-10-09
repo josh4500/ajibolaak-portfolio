@@ -1,4 +1,4 @@
-import { ArrowUpRight, Database, Mail, Server, Smartphone } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Database, Mail, Server, Smartphone } from "lucide-react";
 import { experience, profile, projects, skills } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { Reveal } from "./Reveal";
@@ -206,15 +206,33 @@ export function Contact() {
             Let&apos;s build something <em className="accent-serif">together</em>.
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-muted">
-            Have a mobile product, backend system or collaboration in mind? Email is the fastest way to reach me.
+            Have a mobile product, backend system or collaboration in mind?{" "}
+            {profile.calendlyUrl ? "Book a call or send me an email." : "Email is the fastest way to reach me."}
           </p>
-          <a
-            href={`mailto:${profile.email}`}
-            className="mt-10 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-accent-contrast transition hover:opacity-85"
-          >
-            <Mail className="h-4 w-4" aria-hidden />
-            {profile.email}
-          </a>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            {profile.calendlyUrl && (
+              <a
+                href={profile.calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-accent-contrast transition hover:opacity-85"
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden />
+                Book a call
+              </a>
+            )}
+            <a
+              href={`mailto:${profile.email}`}
+              className={`inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition ${
+                profile.calendlyUrl
+                  ? "border border-border bg-background/60 hover:border-foreground"
+                  : "bg-accent text-accent-contrast hover:opacity-85"
+              }`}
+            >
+              <Mail className="h-4 w-4" aria-hidden />
+              {profile.email}
+            </a>
+          </div>
           <div className="mt-8 flex justify-center gap-6 font-mono text-xs text-muted">
             <a
               href={profile.github}

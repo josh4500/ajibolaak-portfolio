@@ -14,6 +14,8 @@ export const profile = {
   github: "https://github.com/josh4500",
   linkedin: "https://www.linkedin.com/in/ajibolaak", // TODO: confirm
   mediumHandle: "ajibolaak",
+  // Your Calendly booking link, e.g. "https://calendly.com/your-name/30min". Leave empty to hide the "Book a call" options.
+  calendlyUrl: "",
   // Path or URL to your résumé, e.g. "/resume.pdf" after dropping the file in /public. Leave empty to hide the button.
   resumeUrl: "",
   about: [
