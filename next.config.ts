@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    // Medium post thumbnails
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn-images-1.medium.com" },
+      { protocol: "https", hostname: "miro.medium.com" },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {

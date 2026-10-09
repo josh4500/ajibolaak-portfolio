@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ajibolaak.dev
 
-## Getting Started
+Personal portfolio + blog. Built with Next.js 16, Tailwind CSS v4 and TypeScript, deployed on Vercel.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Make it yours
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All content lives in **`src/data/profile.ts`**. Replace every `TODO`:
 
-## Learn More
+- name, title, pitch, location, email, about paragraphs
+- social links
+- skills, projects, experience
 
-To learn more about Next.js, take a look at the following resources:
+**Résumé:** put your PDF at `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`. The Résumé button stays hidden while `resumeUrl` is empty.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Blog (Medium)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The blog pulls your latest posts from Medium's RSS feed (`https://medium.com/feed/@ajibolaak`).
 
-## Deploy on Vercel
+- Publish on Medium as usual. The new post shows up on the site within about an hour, with no redeploy needed.
+- Medium's feed only includes your **10 most recent** posts. The blog page links to your Medium profile for older ones.
+- Until you publish your first post, the site shows a "Follow me on Medium" card.
+- To change the account, edit `mediumHandle` in `src/data/profile.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Code: `src/lib/medium.ts` (fetch + parse, cached for 1 hour), `src/app/blog/page.tsx`, `src/components/BlogCard.tsx`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy to Vercel
+
+1. Create an empty GitHub repo (e.g. `ajibolaak-portfolio`) and push:
+   ```bash
+   git remote add origin https://github.com/<you>/ajibolaak-portfolio.git
+   git push -u origin main
+   ```
+2. On [vercel.com](https://vercel.com): **Add New → Project**, import the repo, keep the defaults, and click **Deploy**.
+3. Every push to `main` redeploys automatically, and pull requests get preview URLs.
+
+## Connect ajibolaak.dev
+
+1. Vercel project → **Settings → Domains** → add `ajibolaak.dev`, then add `www.ajibolaak.dev` and set it to redirect to `ajibolaak.dev`.
+2. At your domain registrar, choose **one** of these:
+   - **Nameservers (simplest):** set them to `ns1.vercel-dns.com` and `ns2.vercel-dns.com`.
+   - **DNS records:** add the A record for `@` and the CNAME for `www` exactly as Vercel shows them.
+3. Wait for DNS to propagate. This usually takes minutes but can take up to 48 hours. Vercel issues the HTTPS certificate automatically.
+   `.dev` domains work over HTTPS only, so the site won't load until that certificate exists. This is expected.
