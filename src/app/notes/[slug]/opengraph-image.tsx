@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { notFound } from "next/navigation";
 import { logoPath } from "@/components/LogoMark";
-import { dateFormat, getAllNoteSlugs, getNote } from "@/lib/notes";
+import { dateFormat, getAllNoteSlugs, getNote, getNotes } from "@/lib/notes";
 import { profile } from "@/data/profile";
 
 // The share card for a note: its title on the site's black background.
@@ -9,15 +10,16 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export function generateStaticParams() {
-  return getAllNoteSlugs().map((slug) => ({ slug }));
+  // Published notes only; the route needs at least one param, so fall back to every file.
+  const published = getNotes().map((n) => ({ slug: n.slug }));
+  return published.length ? published : getAllNoteSlugs().map((slug) => ({ slug }));
 }
 
 export default async function NoteOpengraphImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const note = await getNote(slug);
-  const details = note
-    ? [note.date && dateFormat.format(new Date(note.date)), `${note.readingMinutes} min read`].filter(Boolean)
-    : [];
+  if (!note) notFound();
+  const details = [note.date && dateFormat.format(new Date(note.date)), `${note.readingMinutes} min read`].filter(Boolean);
 
   return new ImageResponse(
     (
@@ -40,7 +42,7 @@ export default async function NoteOpengraphImage({ params }: { params: Promise<{
           <div style={{ fontSize: 28, letterSpacing: 6, color: "#a1a1aa" }}>NOTES</div>
         </div>
         <div style={{ display: "flex", fontSize: 72, fontWeight: 700, letterSpacing: -2, lineHeight: 1.08 }}>
-          {note?.title ?? profile.name}
+          {note.title}
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#71717a" }}>
           <div style={{ display: "flex" }}>{profile.name} · ajibolaak.dev</div>

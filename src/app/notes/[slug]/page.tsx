@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { dateFormat, getAllNoteSlugs, getNote } from "@/lib/notes";
 import { profile } from "@/data/profile";
 import { JsonLd } from "@/components/JsonLd";
+import { ListenToNote } from "@/components/ListenToNote";
 import { noteGraph } from "@/lib/structured-data";
 
 export function generateStaticParams() {
@@ -27,12 +27,20 @@ export async function generateMetadata({ params }: PageProps<"/notes/[slug]">): 
       description: note.description,
       publishedTime: note.date,
       authors: [profile.name],
+      tags: note.tags,
       url: `/notes/${slug}`,
+      // The page's openGraph replaces the layout's, so repeat the site name.
+      siteName: profile.name,
     },
   };
 }
 
-async function NoteContent({ params }: Pick<PageProps<"/notes/[slug]">, "params">) {
+// Every note is listed by generateStaticParams, so params is awaited outside any <Suspense>: each page is
+// prerendered whole, with the article in the initial HTML for importers (Medium) and scrapers that don't
+// run JavaScript. An unknown slug blocks on the server and 404s instead of streaming into a shell.
+export const instant = false;
+
+export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
   const { slug } = await params;
   const note = await getNote(slug);
   if (!note) notFound();
@@ -53,6 +61,12 @@ async function NoteContent({ params }: Pick<PageProps<"/notes/[slug]">, "params"
           {note.date && <time dateTime={note.date}>{dateFormat.format(new Date(note.date))}</time>}
           <span aria-hidden>·</span>
           <span>{note.readingMinutes} min read</span>
+          <ListenToNote
+            bodyId="note-body"
+            title={note.title}
+            description={note.description}
+            readingMinutes={note.readingMinutes}
+          />
           {note.draft && <span className="rounded-full border border-border px-2 py-0.5 normal-case">draft</span>}
         </div>
         <h1 className="mt-5 text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl">
@@ -71,7 +85,7 @@ async function NoteContent({ params }: Pick<PageProps<"/notes/[slug]">, "params"
       </header>
 
       {/* Note HTML is rendered from Markdown files in this repo at build time. */}
-      <div className="prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
+      <div id="note-body" className="prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
 
       <footer className="mt-16 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted">
@@ -85,30 +99,5 @@ async function NoteContent({ params }: Pick<PageProps<"/notes/[slug]">, "params"
         </Link>
       </footer>
     </article>
-  );
-}
-
-// The URL is read inside <Suspense> so navigation can show the page shell instantly.
-export default function NotePage({ params }: PageProps<"/notes/[slug]">) {
-  return (
-    <Suspense fallback={<NoteSkeleton />}>
-      <NoteContent params={params} />
-    </Suspense>
-  );
-}
-
-function NoteSkeleton() {
-  return (
-    <div className="mx-auto max-w-3xl animate-pulse px-4 pt-36 pb-20 sm:px-6 sm:pt-40" aria-hidden>
-      <div className="h-3 w-24 rounded bg-accent-soft" />
-      <div className="mt-12 h-3 w-40 rounded bg-accent-soft" />
-      <div className="mt-6 h-12 w-4/5 rounded bg-accent-soft" />
-      <div className="mt-4 h-5 w-3/5 rounded bg-accent-soft" />
-      <div className="mt-14 space-y-3">
-        <div className="h-4 rounded bg-accent-soft" />
-        <div className="h-4 rounded bg-accent-soft" />
-        <div className="h-4 w-2/3 rounded bg-accent-soft" />
-      </div>
-    </div>
   );
 }

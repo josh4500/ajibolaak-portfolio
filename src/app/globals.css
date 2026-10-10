@@ -201,6 +201,17 @@ section[id] {
   border-radius: 1rem;
   border: 1px solid var(--border);
 }
+/* The block being read aloud by ListenToNote: muted text lifts to full contrast. */
+.prose-note > *,
+.prose-note li {
+  transition: color 0.3s ease;
+}
+.prose-note .is-reading {
+  color: var(--foreground);
+}
+.prose-note .is-reading img {
+  border-color: var(--foreground);
+}
 .prose-note :not(pre) > code {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 0.85em;

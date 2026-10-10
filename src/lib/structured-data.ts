@@ -62,6 +62,7 @@ export function noteGraph(note: NoteMeta) {
     headline: note.title,
     description: note.description,
     datePublished: note.date,
+    dateModified: note.date,
     url,
     mainEntityOfPage: url,
     image: `${url}/opengraph-image`,
