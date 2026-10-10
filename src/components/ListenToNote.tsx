@@ -36,6 +36,8 @@ const noSubscribe = () => () => {};
 const isSupported = () => "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
 const normLang = (lang: string) => lang.replace("_", "-").toLowerCase();
 const usesWebKitSpeech = () => navigator.vendor === "Apple Computer, Inc.";
+// The reader's own English variant (en-GB, en-NG…) when their browser is in English.
+const readerEnglish = () => (normLang(navigator.language).startsWith("en") ? navigator.language : "en-US");
 
 function pickVoice(voices: SpeechSynthesisVoice[]) {
   const reader = normLang(navigator.language);
@@ -222,8 +224,14 @@ export function ListenToNote({
     highlight(list[i].el ?? highlighted.current);
 
     const u = new SpeechSynthesisUtterance(list[i].text);
-    if (voice.current) u.voice = voice.current;
-    u.lang = voice.current?.lang ?? "en-US";
+    // On iOS, an utterance given a voice from getVoices() fires "start" but stays silent and never
+    // ends, so WebKit gets only a language and uses the voice set in the system's settings.
+    if (voice.current && !usesWebKitSpeech()) {
+      u.voice = voice.current;
+      u.lang = voice.current.lang;
+    } else {
+      u.lang = readerEnglish();
+    }
     u.rate = usesWebKitSpeech() ? (WEBKIT_RATES[rateRef.current] ?? 1) : rateRef.current;
     u.onend = () => {
       if (session.current === id) speakFrom(i + 1);
@@ -252,7 +260,7 @@ export function ListenToNote({
   };
 
   const play = (from: number) => {
-    voice.current = pickVoice(window.speechSynthesis.getVoices());
+    voice.current = usesWebKitSpeech() ? null : pickVoice(window.speechSynthesis.getVoices());
     retried.current = false;
     setNotice("");
     setStatusBoth("playing");
@@ -270,6 +278,11 @@ export function ListenToNote({
     setRate(saved);
     // Chrome shares one speech queue across tabs; this also clears a pause another tab left behind.
     window.speechSynthesis.cancel();
+    // Safari 16.4+: treat this page's sound as playback, which iOS can keep audible in silent mode.
+    const audioSession = (navigator as Navigator & { audioSession?: { type: string } }).audioSession;
+    try {
+      if (audioSession) audioSession.type = "playback";
+    } catch {}
     position.current = 0;
     play(0);
   };
