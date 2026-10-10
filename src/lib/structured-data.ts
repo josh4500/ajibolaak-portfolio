@@ -64,7 +64,7 @@ export function noteGraph(note: NoteMeta) {
     datePublished: note.date,
     url,
     mainEntityOfPage: url,
-    image: `${site.url}/opengraph-image`,
+    image: `${url}/opengraph-image`,
     keywords: note.tags.join(", "),
     author: { "@type": "Person", "@id": personId, name: profile.name, url: site.url },
     publisher: { "@type": "Person", "@id": personId, name: profile.name },
