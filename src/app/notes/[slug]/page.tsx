@@ -44,6 +44,8 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
   const { slug } = await params;
   const note = await getNote(slug);
   if (!note) notFound();
+  // Unique per note: Next keeps recently visited routes mounted (hidden), so several notes can be in the DOM.
+  const bodyId = `note-body-${slug}`;
 
   return (
     <article className="mx-auto max-w-3xl px-4 pt-36 pb-20 sm:px-6 sm:pt-40">
@@ -62,10 +64,10 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
           <span aria-hidden>·</span>
           <span>{note.readingMinutes} min read</span>
           <ListenToNote
-            bodyId="note-body"
+            bodyId={bodyId}
             title={note.title}
             description={note.description}
-            readingMinutes={note.readingMinutes}
+            listenMinutes={note.listenMinutes}
           />
           {note.draft && <span className="rounded-full border border-border px-2 py-0.5 normal-case">draft</span>}
         </div>
@@ -85,7 +87,7 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
       </header>
 
       {/* Note HTML is rendered from Markdown files in this repo at build time. */}
-      <div id="note-body" className="prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
+      <div id={bodyId} className="prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
 
       <footer className="mt-16 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted">

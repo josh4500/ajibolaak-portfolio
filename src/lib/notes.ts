@@ -25,6 +25,8 @@ export type NoteMeta = {
   tags: string[];
   draft: boolean;
   readingMinutes: number;
+  // Read aloud at about 165 words a minute; code blocks are skipped when listening.
+  listenMinutes: number;
 };
 
 export type Note = NoteMeta & { html: string };
@@ -52,6 +54,7 @@ function readNote(slug: string) {
   // Synchronous reads are part of the build-time prerender, so no extra caching is needed.
   const { data, content } = matter(fs.readFileSync(file, "utf8"));
   const words = content.trim().split(/\s+/).length;
+  const spokenWords = content.replace(/```[\s\S]*?```/g, " ").trim().split(/\s+/).length;
   const meta: NoteMeta = {
     slug,
     title: String(data.title ?? slug),
@@ -60,6 +63,7 @@ function readNote(slug: string) {
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     draft: Boolean(data.draft),
     readingMinutes: Math.max(1, Math.round(words / 220)),
+    listenMinutes: Math.max(1, Math.round(spokenWords / 165)),
   };
   return { meta, content };
 }
