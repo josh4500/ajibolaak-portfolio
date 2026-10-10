@@ -20,6 +20,17 @@ All site content lives in **`src/data/profile.ts`**: name, intro, links, About t
 
 **Theme:** monochrome black and white, dark by default. Visitors can switch to light mode with the sun/moon toggle. Colors are defined as CSS variables in `src/app/globals.css`.
 
+## Notes
+
+Short posts that live on the site at `ajibolaak.dev/notes/<name>`. Unlike the blog, which comes from Medium, notes are Markdown files in this repo.
+
+1. Copy `content/notes/how-to-write-a-note.md` to a new file. The file name becomes the URL, e.g. `content/notes/flutter-state-management.md` → `/notes/flutter-state-management`. Use lowercase words joined by hyphens.
+2. Edit the front matter at the top (`title`, `description`, `date`, `tags`) and write the note in Markdown. Code blocks are syntax-highlighted, and tables, images and links all work.
+3. Remove `draft: true` to publish. Drafts show up locally (`npm run dev`) but never on the live site.
+4. Commit and push. The note appears on the site within a minute.
+
+Put images in `public/notes/` and reference them as `/notes/your-image.png`. Notes also have an RSS feed at `/notes/rss.xml`.
+
 ## Résumé
 
 The downloadable résumé (`public/resume.pdf`) is generated from **`resume/resume.html`**:

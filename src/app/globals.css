@@ -120,3 +120,128 @@ section[id] {
     transition: none;
   }
 }
+
+/* Long-form note content (rendered Markdown in app/notes/[slug]). */
+.prose-note {
+  font-size: 1.075rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.prose-note > * + * {
+  margin-top: 1.4em;
+}
+.prose-note :where(h2, h3, h4) {
+  color: var(--foreground);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  scroll-margin-top: 7rem;
+}
+.prose-note h2 {
+  margin-top: 2.4em;
+  font-size: 1.6rem;
+}
+.prose-note h3 {
+  margin-top: 2em;
+  font-size: 1.25rem;
+}
+.prose-note h2 a,
+.prose-note h3 a,
+.prose-note h4 a {
+  color: inherit;
+  text-decoration: none;
+}
+.prose-note :where(h2, h3, h4) a:hover::after {
+  content: " #";
+  color: var(--faint);
+}
+.prose-note :where(strong) {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.prose-note a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--faint);
+  text-underline-offset: 4px;
+}
+.prose-note a:hover {
+  text-decoration-color: var(--foreground);
+}
+.prose-note :where(ul, ol) {
+  padding-left: 1.3em;
+}
+.prose-note ul {
+  list-style: disc;
+}
+.prose-note ol {
+  list-style: decimal;
+}
+.prose-note li + li {
+  margin-top: 0.4em;
+}
+.prose-note li::marker {
+  color: var(--faint);
+}
+.prose-note blockquote {
+  border-left: 2px solid var(--foreground);
+  padding-left: 1.2em;
+  color: var(--foreground);
+  font-family: var(--font-instrument-serif), serif;
+  font-style: italic;
+  font-size: 1.35em;
+  line-height: 1.5;
+}
+.prose-note hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 3em 0;
+}
+.prose-note img {
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+.prose-note :not(pre) > code {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.85em;
+  color: var(--foreground);
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.12em 0.4em;
+  font-variant-ligatures: none;
+}
+.prose-note pre {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  padding: 1.1rem 1.25rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  font-variant-ligatures: none;
+}
+/* Shiki dual themes from rehype-pretty-code */
+.prose-note pre code span {
+  color: var(--shiki-light);
+}
+.dark .prose-note pre code span {
+  color: var(--shiki-dark);
+}
+.prose-note table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+  display: block;
+  overflow-x: auto;
+}
+.prose-note :where(th, td) {
+  border-bottom: 1px solid var(--border);
+  padding: 0.6em 1em 0.6em 0;
+  text-align: left;
+}
+.prose-note th {
+  color: var(--foreground);
+  font-weight: 600;
+}

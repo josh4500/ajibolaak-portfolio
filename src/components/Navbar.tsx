@@ -16,6 +16,7 @@ const links = [
   { href: "/#projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
   { href: "/blog", label: "Blog" },
+  { href: "/notes", label: "Notes" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -60,11 +61,11 @@ export function Navbar() {
           </Link>
 
           <ul className="hidden items-center lg:flex">
-            {links.map((l) => (
+            {links.slice(1).map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="rounded-full px-3.5 py-2 text-sm text-muted transition hover:bg-accent-soft hover:text-foreground"
+                  className="rounded-full px-3 py-2 text-sm text-muted transition hover:bg-accent-soft hover:text-foreground"
                 >
                   {l.label}
                 </Link>
