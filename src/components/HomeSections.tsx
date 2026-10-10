@@ -89,7 +89,7 @@ export function Projects() {
           Selected <em className="accent-serif">work</em>.
         </>
       }
-      intro="Products I've designed, built and shipped across fintech, payments and secure messaging."
+      intro="Products I've designed, built and shipped across fintech, payments and secure messaging, plus open source."
     >
       <ol className="space-y-5">
         {projects.map((p, i) => (
@@ -125,7 +125,7 @@ export function Projects() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-accent-contrast transition hover:opacity-85"
                     >
-                      Live Demo <ArrowUpRight className="h-4 w-4" aria-hidden />
+                      {p.liveLabel ?? "Live Demo"} <ArrowUpRight className="h-4 w-4" aria-hidden />
                     </a>
                   )}
                 </div>

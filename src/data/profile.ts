@@ -64,10 +64,28 @@ export type Project = {
   highlights: string[];
   repo?: string;
   live?: string;
+  // Text for the `live` link; defaults to "Live Demo".
+  liveLabel?: string;
 };
 
 // Products built in professional roles (from the résumé). Add personal or open-source projects with repo/live links.
 export const projects: Project[] = [
+  {
+    title: "screenshot_shield",
+    company: "Open source · Flutter plugin",
+    problem:
+      "A Flutter plugin for protecting sensitive screens: it detects screenshots and screen recordings, blanks captures of a whole screen or a single region, and hides the app in the app switcher.",
+    tech: ["Flutter", "Dart", "Kotlin", "Swift", "C++"],
+    highlights: [
+      "Published on pub.dev, with native implementations for Android, iOS, Windows and Linux",
+      "Built on Android 14/15 screen-capture and recording APIs and iOS per-scene capture state",
+      "Keeps a single region out of iOS recordings with a live, capture-excluded copy",
+      "Route-aware guards that count their claims, plus app-switcher privacy",
+    ],
+    repo: "https://github.com/josh4500/screenshot_guard",
+    live: "https://pub.dev/packages/screenshot_shield",
+    liveLabel: "pub.dev",
+  },
   {
     title: "Cross-Border Payments App",
     company: "Yousend Inc.",
