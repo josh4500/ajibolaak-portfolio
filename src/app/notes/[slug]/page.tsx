@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { dateFormat, getAllNoteSlugs, getNote } from "@/lib/notes";
 import { profile } from "@/data/profile";
+import { JsonLd } from "@/components/JsonLd";
+import { noteGraph } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   // Includes drafts so the route always has at least one page to prerender; drafts 404 in production.
@@ -37,6 +39,7 @@ async function NoteContent({ params }: Pick<PageProps<"/notes/[slug]">, "params"
 
   return (
     <article className="mx-auto max-w-3xl px-4 pt-36 pb-20 sm:px-6 sm:pt-40">
+      <JsonLd data={noteGraph(note)} />
       <Link
         href="/notes"
         className="group inline-flex items-center gap-2 font-mono text-xs tracking-widest text-muted uppercase transition hover:text-foreground"

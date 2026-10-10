@@ -4,6 +4,8 @@ import { About, Contact, Experience, Projects, Skills } from "@/components/HomeS
 import { Section } from "@/components/Section";
 import { BlogCard, EmptyBlog } from "@/components/BlogCard";
 import { getMediumPosts, mediumProfileUrl } from "@/lib/medium";
+import { JsonLd } from "@/components/JsonLd";
+import { personGraph } from "@/lib/structured-data";
 
 async function LatestWriting() {
   const posts = (await getMediumPosts()).slice(0, 3);
@@ -45,6 +47,7 @@ async function LatestWriting() {
 export default function Home() {
   return (
     <>
+      <JsonLd data={personGraph()} />
       <Hero />
       <About />
       <Skills />
