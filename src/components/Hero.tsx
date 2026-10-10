@@ -20,7 +20,7 @@ export function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl items-center px-4 pt-32 pb-16 sm:px-6 lg:pt-28">
+      <div className="relative mx-auto flex min-h-[min(100svh,60rem)] max-w-6xl items-center px-4 pt-32 pb-16 sm:px-6 lg:pt-28">
         <div className="relative z-10 max-w-4xl">
           <p className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 font-mono text-[11px] tracking-widest text-muted uppercase backdrop-blur">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" aria-hidden />
