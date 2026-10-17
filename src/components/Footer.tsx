@@ -12,7 +12,7 @@ async function getYear() {
 export async function Footer() {
   const year = await getYear();
   return (
-    <footer className="overflow-hidden border-t border-border">
+    <footer className="site-footer overflow-hidden border-t border-border">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col items-center justify-between gap-4 py-8 font-mono text-xs text-muted sm:flex-row">
           <p>

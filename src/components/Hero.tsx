@@ -2,6 +2,7 @@ import { ArrowDownRight, ArrowUpRight, Download } from "lucide-react";
 import { profile } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { ParticleField } from "./ParticleField";
+import { HeroIntroSeen } from "./HeroIntroSeen";
 
 const facts = [
   { label: "Focus", value: "Mobile engineering" },
@@ -13,6 +14,7 @@ const facts = [
 export function Hero() {
   return (
     <section id="home" className="relative isolate overflow-hidden">
+      <HeroIntroSeen />
       <div className="bg-dots absolute inset-0 -z-10" aria-hidden />
       {/* Soft spotlight behind the headline */}
       <div
@@ -22,22 +24,32 @@ export function Hero() {
 
       <div className="relative mx-auto flex min-h-[min(100svh,60rem)] max-w-6xl items-center px-4 pt-32 pb-16 sm:px-6 lg:pt-28">
         <div className="relative z-10 max-w-4xl">
-          <p className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 font-mono text-[11px] tracking-widest text-muted uppercase backdrop-blur">
+          <p className="hero-intro mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 font-mono text-[11px] tracking-widest text-muted uppercase backdrop-blur">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" aria-hidden />
             {profile.role}
           </p>
 
           <h1 className="text-5xl leading-[0.95] font-semibold tracking-[-0.04em] sm:text-7xl lg:text-[5.5rem]">
-            Crafting <em className="accent-serif whitespace-nowrap">mobile apps</em>
-            <br />
-            <span className="text-faint">&amp; the systems behind them.</span>
+            {/* One block per line so each can rise on its own. */}
+            <span className="hero-intro block">
+              Crafting <em className="accent-serif whitespace-nowrap">mobile apps</em>
+            </span>
+            <span className="hero-intro block text-faint" style={{ "--intro-step": 1 } as React.CSSProperties}>
+              &amp; the systems behind them.
+            </span>
           </h1>
 
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted text-pretty">
+          <p
+            className="hero-intro mt-8 max-w-xl text-lg leading-relaxed text-muted text-pretty"
+            style={{ "--intro-step": 2 } as React.CSSProperties}
+          >
             Hi, I&apos;m {profile.name}. {profile.intro}
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div
+            className="hero-intro mt-10 flex flex-wrap items-center gap-3"
+            style={{ "--intro-step": 3 } as React.CSSProperties}
+          >
             <a
               href="#projects"
               className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-contrast transition hover:opacity-85"
@@ -70,7 +82,10 @@ export function Hero() {
             )}
           </div>
 
-          <div className="mt-8 flex gap-5 font-mono text-xs text-muted">
+          <div
+            className="hero-intro mt-8 flex gap-5 font-mono text-xs text-muted"
+            style={{ "--intro-step": 4 } as React.CSSProperties}
+          >
             <a
               href={profile.github}
               target="_blank"
@@ -91,12 +106,15 @@ export function Hero() {
         </div>
 
         {/* Particle sphere: floats to the right on desktop, a faint backdrop on small screens. */}
-        <div className="pointer-events-none absolute top-24 left-1/2 aspect-square w-[110vw] max-w-[640px] -translate-x-1/2 opacity-30 lg:top-1/2 lg:right-0 lg:left-auto lg:w-[560px] lg:translate-x-[8%] lg:-translate-y-1/2 lg:opacity-70">
+        <div className="hero-intro-fade pointer-events-none absolute top-24 left-1/2 aspect-square w-[110vw] max-w-[640px] -translate-x-1/2 opacity-30 lg:top-1/2 lg:right-0 lg:left-auto lg:w-[560px] lg:translate-x-[8%] lg:-translate-y-1/2 lg:opacity-70">
           <ParticleField className="h-full w-full" />
         </div>
       </div>
 
-      <dl className="mx-auto grid max-w-6xl grid-cols-2 border-y border-border sm:px-6 md:grid-cols-4 md:border-x-0">
+      <dl
+        className="hero-intro mx-auto grid max-w-6xl grid-cols-2 border-y border-border sm:px-6 md:grid-cols-4 md:border-x-0"
+        style={{ "--intro-step": 5 } as React.CSSProperties}
+      >
         {facts.map((f, i) => (
           <div
             key={f.label}

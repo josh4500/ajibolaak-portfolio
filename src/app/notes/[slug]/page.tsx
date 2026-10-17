@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ViewTransition } from "react";
 import { ArrowLeft } from "lucide-react";
 import { dateFormat, getAllNoteSlugs, getNote } from "@/lib/notes";
 import { profile } from "@/data/profile";
 import { JsonLd } from "@/components/JsonLd";
 import { ListenToNote } from "@/components/ListenToNote";
 import { noteGraph } from "@/lib/structured-data";
+import { PAGE_TRANSITION, PageTransition } from "@/components/PageTransition";
 
 export function generateStaticParams() {
   // Includes drafts so the route always has at least one page to prerender; drafts 404 in production.
@@ -48,58 +50,73 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
   const bodyId = `note-body-${slug}`;
 
   return (
-    <article className="mx-auto max-w-3xl px-4 pt-36 pb-20 sm:px-6 sm:pt-40">
-      <JsonLd data={noteGraph(note)} />
-      <Link
-        href="/notes"
-        className="group inline-flex items-center gap-2 font-mono text-xs tracking-widest text-muted uppercase transition hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden />
-        All notes
-      </Link>
-
-      <header className="mt-10 border-b border-border pb-10">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs tracking-wide text-muted uppercase">
-          {note.date && <time dateTime={note.date}>{dateFormat.format(new Date(note.date))}</time>}
-          <span aria-hidden>·</span>
-          <span>{note.readingMinutes} min read</span>
-          <ListenToNote
-            bodyId={bodyId}
-            title={note.title}
-            description={note.description}
-            listenMinutes={note.listenMinutes}
-          />
-          {note.draft && <span className="rounded-full border border-border px-2 py-0.5 normal-case">draft</span>}
-        </div>
-        <h1 className="mt-5 text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl">
-          {note.title}
-        </h1>
-        {note.description && <p className="mt-5 text-lg leading-relaxed text-muted">{note.description}</p>}
-        {note.tags.length > 0 && (
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {note.tags.map((t) => (
-              <li key={t} className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-muted">
-                {t}
-              </li>
-            ))}
-          </ul>
-        )}
-      </header>
-
-      {/* Note HTML is rendered from Markdown files in this repo at build time. */}
-      <div id={bodyId} className="prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
-
-      <footer className="mt-16 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-muted">
-          Written by <span className="text-foreground">{profile.name}</span>
-        </p>
+    <PageTransition>
+      <article className="note-page mx-auto max-w-3xl px-4 pt-36 pb-20 sm:px-6 sm:pt-40">
+        <JsonLd data={noteGraph(note)} />
+        {/* Fills as the reader moves through the body; pure CSS (globals.css). */}
+        <div className="reading-progress" aria-hidden />
         <Link
           href="/notes"
-          className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
+          transitionTypes={PAGE_TRANSITION}
+          className="group inline-flex items-center gap-2 font-mono text-xs tracking-widest text-muted uppercase transition hover:text-foreground"
         >
-          <ArrowLeft className="h-4 w-4" aria-hidden /> More notes
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden />
+          All notes
         </Link>
-      </footer>
-    </article>
+
+        <header className="mt-10 border-b border-border pb-10">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs tracking-wide text-muted uppercase">
+            {note.date && <time dateTime={note.date}>{dateFormat.format(new Date(note.date))}</time>}
+            <span aria-hidden>·</span>
+            <span>{note.readingMinutes} min read</span>
+            <ListenToNote
+              bodyId={bodyId}
+              title={note.title}
+              description={note.description}
+              listenMinutes={note.listenMinutes}
+            />
+            {note.draft && <span className="rounded-full border border-border px-2 py-0.5 normal-case">draft</span>}
+          </div>
+          <ViewTransition
+            name={`note-title-${note.slug}`}
+            share={{ page: "note-title", default: "none" }}
+            default="none"
+          >
+            <h1 className="mt-5 text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl">
+              {note.title}
+            </h1>
+          </ViewTransition>
+          {note.description && <p className="mt-5 text-lg leading-relaxed text-muted">{note.description}</p>}
+          {note.tags.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {note.tags.map((t) => (
+                <li
+                  key={t}
+                  className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-muted"
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
+          )}
+        </header>
+
+        {/* Note HTML is rendered from Markdown files in this repo at build time. */}
+        <div id={bodyId} className="note-body prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
+
+        <footer className="mt-16 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted">
+            Written by <span className="text-foreground">{profile.name}</span>
+          </p>
+          <Link
+            href="/notes"
+            transitionTypes={PAGE_TRANSITION}
+            className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" aria-hidden /> More notes
+          </Link>
+        </footer>
+      </article>
+    </PageTransition>
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, CalendarDays, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
+import { PAGE_TRANSITION } from "./PageTransition";
 
 const pill =
   "inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition hover:opacity-85";
@@ -27,7 +28,7 @@ export function LetsTalk() {
 
   if (!profile.calendlyUrl) {
     return (
-      <Link href="/#contact" className={pill}>
+      <Link href="/#contact" transitionTypes={PAGE_TRANSITION} className={pill}>
         Let&apos;s talk <ArrowUpRight className="h-4 w-4" aria-hidden />
       </Link>
     );

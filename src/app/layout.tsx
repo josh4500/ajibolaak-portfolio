@@ -49,7 +49,7 @@ const themeScript = `(function(){try{if(localStorage.getItem('theme')==='light')
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${mono.variable} dark h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${serif.variable} ${mono.variable} dark h-full antialiased`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

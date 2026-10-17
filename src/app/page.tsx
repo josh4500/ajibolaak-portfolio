@@ -6,6 +6,7 @@ import { BlogCard, EmptyBlog } from "@/components/BlogCard";
 import { getMediumPosts, mediumProfileUrl } from "@/lib/medium";
 import { JsonLd } from "@/components/JsonLd";
 import { personGraph } from "@/lib/structured-data";
+import { PAGE_TRANSITION, PageTransition } from "@/components/PageTransition";
 
 async function LatestWriting() {
   const posts = (await getMediumPosts()).slice(0, 3);
@@ -34,6 +35,7 @@ async function LatestWriting() {
           </ul>
           <Link
             href="/blog"
+            transitionTypes={PAGE_TRANSITION}
             className="mt-10 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
           >
             All articles →
@@ -46,15 +48,17 @@ async function LatestWriting() {
 
 export default function Home() {
   return (
-    <>
-      <JsonLd data={personGraph()} />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <LatestWriting />
-      <Contact />
-    </>
+    <PageTransition>
+      <div>
+        <JsonLd data={personGraph()} />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <LatestWriting />
+        <Contact />
+      </div>
+    </PageTransition>
   );
 }

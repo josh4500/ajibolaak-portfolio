@@ -120,6 +120,125 @@ section[id] {
   }
 }
 
+/* Hero entrance (components/Hero.tsx): each block rises in turn, once per visit. The first line
+   starts at once, so the headline paints as early as it did without the animation. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-intro-seen]) .hero-intro {
+    animation: hero-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--intro-step, 0) * 90ms) both;
+  }
+  html:not([data-intro-seen]) .hero-intro-fade {
+    animation: hero-fade 1.6s ease-out 0.2s both;
+  }
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Page transitions (components/PageTransition.tsx): the old page fades out quickly, the new one
+   fades up once it has gone, and a note's title glides between the list and the note. */
+::view-transition {
+  pointer-events: none; /* clicks during a transition reach the new page */
+}
+::view-transition-old(.page-out) {
+  animation: 150ms ease-out both vt-fade-out;
+}
+::view-transition-new(.page-in) {
+  animation: 300ms cubic-bezier(0.2, 0.7, 0.2, 1) 140ms both vt-rise-in;
+}
+/* The footer belongs to the layout, so it isn't in the page's snapshot: fade it in alongside. */
+@media (prefers-reduced-motion: no-preference) {
+  html:active-view-transition-type(page) .site-footer {
+    animation: 300ms cubic-bezier(0.2, 0.7, 0.2, 1) 140ms both vt-rise-in;
+  }
+}
+::view-transition-group(.note-title) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+::view-transition-image-pair(.note-title) {
+  animation-name: vt-via-blur; /* hides the text stretching mid-flight */
+}
+::view-transition-old(.note-title) {
+  animation-duration: 160ms; /* the old title clears early, so the two don't ghost over each other */
+}
+/* The navbar stays put while the page beneath it changes. */
+::view-transition-group(site-nav) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-nav) {
+  display: none;
+}
+::view-transition-new(site-nav) {
+  animation: none;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes vt-via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Reading progress on notes (notes/[slug]/page.tsx): a scroll-driven bar, no JavaScript. It fills
+   from the top of the note body reaching the top of the screen to its end reaching the bottom.
+   Browsers without scroll-driven animations simply don't show it. */
+.reading-progress {
+  display: none;
+}
+@supports (animation-timeline: view()) and (timeline-scope: --a) {
+  .note-page {
+    timeline-scope: --note-body;
+  }
+  .note-body {
+    view-timeline-name: --note-body;
+  }
+  .reading-progress {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 45; /* above the navbar, below the mobile menu */
+    height: 2px;
+    background: var(--foreground);
+    transform-origin: 0 50%;
+    animation: reading-progress linear both;
+    animation-timeline: --note-body;
+    animation-range: contain;
+  }
+}
+@keyframes reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Long-form note content (rendered Markdown in app/notes/[slug]). */
 .prose-note {
   font-size: 1.075rem;
