@@ -28,7 +28,7 @@ export default function NotesPage() {
           Short write-ups on mobile engineering, Flutter, backend systems and lessons from shipping software.
         </p>
 
-        <ol className="mt-14 border-t border-border">
+        <ol className="notes-list mt-14 border-t border-border">
           {notes.length === 0 && <li className="py-10 text-muted">The first notes are on their way.</li>}
           {notes.map((note, i) => (
             <Reveal as="li" key={note.slug} delay={Math.min(i, 6) * 60} className="border-b border-border">

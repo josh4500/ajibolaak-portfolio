@@ -120,8 +120,7 @@ section[id] {
   }
 }
 
-/* Hero entrance (components/Hero.tsx): each block rises in turn, once per visit. The first line
-   starts at once, so the headline paints as early as it did without the animation. */
+/* Hero entrance (components/Hero.tsx): each block rises in turn, once per visit. */
 @media (prefers-reduced-motion: no-preference) {
   html:not([data-intro-seen]) .hero-intro {
     animation: hero-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--intro-step, 0) * 90ms) both;
@@ -132,7 +131,9 @@ section[id] {
 }
 @keyframes hero-rise {
   from {
-    opacity: 0;
+    /* Not 0: Chrome only counts the headline as painted (LCP) once it has some opacity, so starting
+       at 0 delayed the page's measured load until the animation was removed. */
+    opacity: 0.01;
     transform: translateY(18px);
   }
 }
@@ -145,7 +146,9 @@ section[id] {
 /* Page transitions (components/PageTransition.tsx): the old page fades out quickly, the new one
    fades up once it has gone, and a note's title glides between the list and the note. */
 ::view-transition {
-  pointer-events: none; /* clicks during a transition reach the new page */
+  /* Lets clicks reach whatever isn't animating (the footer). The page and navbar are captured,
+     so they ignore clicks for the half-second a transition runs. */
+  pointer-events: none;
 }
 ::view-transition-old(.page-out) {
   animation: 150ms ease-out both vt-fade-out;
@@ -165,6 +168,13 @@ section[id] {
 }
 ::view-transition-image-pair(.note-title) {
   animation-name: vt-via-blur; /* hides the text stretching mid-flight */
+}
+/* Rows on /notes normally fade up as they scroll into view (Reveal); during a page transition
+   show them at once, so the row is already there when the title lands in it. */
+html:active-view-transition-type(page) .notes-list > .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 ::view-transition-old(.note-title) {
   animation-duration: 160ms; /* the old title clears early, so the two don't ghost over each other */
