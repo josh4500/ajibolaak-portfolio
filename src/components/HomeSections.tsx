@@ -89,7 +89,7 @@ export function Projects() {
           Selected <em className="accent-serif">work</em>.
         </>
       }
-      intro="Products I've designed, built and shipped across fintech, payments and secure messaging, plus open source."
+      intro="Products I've designed, built and shipped across fintech, payments and secure messaging, plus my own apps and open source."
     >
       <ol className="space-y-5">
         {projects.map((p, i) => (

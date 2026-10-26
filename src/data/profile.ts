@@ -71,6 +71,21 @@ export type Project = {
 // Products built in professional roles (from the résumé). Add personal or open-source projects with repo/live links.
 export const projects: Project[] = [
   {
+    title: "Partyhand",
+    company: "Personal project · Flutter + Supabase",
+    problem:
+      "A multiplayer party-game app with five games, where everyone plays on their own phone and joins a room with a 4-letter code, no account needed.",
+    tech: ["Flutter", "Dart", "Supabase", "PostgreSQL", "TypeScript", "RevenueCat"],
+    highlights: [
+      "Five games on one server-authoritative Postgres engine; secrets hidden by row-level security",
+      "Row-locked, idempotent phase changes, so many clients racing one deadline advance it only once",
+      "Streamer mode: Twitch and YouTube chat can vote, with the YouTube API key kept on the server",
+      "Covered by 384 Flutter tests, 244 pgTAP assertions and 22 Deno tests, all run in CI",
+    ],
+    live: "https://partyhand.app",
+    liveLabel: "partyhand.app",
+  },
+  {
     title: "screenshot_shield",
     company: "Open source · Flutter plugin",
     problem:
