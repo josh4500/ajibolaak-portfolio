@@ -9,8 +9,11 @@ export const profile = {
   name: "Ajibola Akinmosin",
   role: "Senior Mobile & Full-Stack Engineer",
   intro:
-    "I build cross-platform mobile apps with Flutter and Dart, and the secure, scalable backends behind them in C# and TypeScript.",
+    "I build fintech, crypto and secure-messaging apps in Flutter, and the backends behind them in C# and TypeScript. Currently shipping mobile at Busha and Yousend.",
   location: "Lagos, Nigeria",
+  timezone: "WAT (UTC+1)",
+  // What work you're open to; shown in the hero, the contact section and under each note.
+  availability: "Open to remote contracts",
   email: "hello@ajibolaak.dev",
   github: "https://github.com/josh4500",
   linkedin: "https://www.linkedin.com/in/ajibolaak",
@@ -18,7 +21,7 @@ export const profile = {
   // Your Calendly booking link, e.g. "https://calendly.com/your-name/30min". Leave empty to hide the "Book a call" options.
   calendlyUrl: "https://calendly.com/ajibolaak",
   // Generated from resume/resume.html with `npm run resume`. Leave empty to hide the Résumé buttons.
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Ajibola-Akinmosin-Resume.pdf",
   about: [
     "I'm a mobile and full-stack engineer with 5+ years of experience building fintech, payments and secure communication products, currently shipping mobile at Busha and Yousend.",
     "My focus is mobile client engineering: cross-platform Flutter apps built on clean architecture, predictable BLoC/Cubit state management, and features that feel native on iOS and Android. On the server side I build secure, scalable services in C# (ASP.NET Core) and TypeScript (NestJS).",
@@ -68,7 +71,11 @@ export type Project = {
   liveLabel?: string;
   // An in-site write-up about the project, e.g. a note.
   writeup?: string;
+  // Extra outbound links shown before `live`, e.g. a second app store.
+  links?: Link[];
 };
+
+type Link = { href: string; label: string };
 
 // Products built in professional roles (from the résumé). Add personal or open-source projects with repo/live links.
 export const projects: Project[] = [
@@ -94,7 +101,7 @@ export const projects: Project[] = [
       "A Flutter plugin for protecting sensitive screens: it detects screenshots and screen recordings, blanks captures of a whole screen or a single region, and hides the app in the app switcher.",
     tech: ["Flutter", "Dart", "Kotlin", "Swift", "C++"],
     highlights: [
-      "Published on pub.dev, with native implementations for Android, iOS, Windows and Linux",
+      "On pub.dev (160/160 points, ~1.1k downloads a month), native on Android, iOS, Windows, Linux",
       "Built on Android 14/15 screen-capture and recording APIs and iOS per-scene capture state",
       "Keeps a single region out of iOS recordings with a live, capture-excluded copy",
       "Route-aware guards that count their claims, plus app-switcher privacy",
@@ -107,6 +114,9 @@ export const projects: Project[] = [
   {
     title: "Cross-Border Payments App",
     company: "Yousend Inc.",
+    links: [{ href: "https://play.google.com/store/apps/details?id=co.yousend.app", label: "Google Play" }],
+    live: "https://apps.apple.com/app/id6742007348",
+    liveLabel: "App Store",
     problem:
       "Fast, reliable money transfers across currencies on iOS and Android, built so several payment teams can ship in parallel.",
     tech: ["Flutter", "Dart", "BLoC/Cubit", "Clean Architecture"],
@@ -120,6 +130,9 @@ export const projects: Project[] = [
   {
     title: "End-to-End Encrypted Messenger",
     company: "Presence Inc.",
+    links: [{ href: "https://play.google.com/store/apps/details?id=is.presence.app", label: "Google Play" }],
+    live: "https://apps.apple.com/app/id6504456930",
+    liveLabel: "App Store",
     problem: "Private real-time chat, calls and media sharing where only the people in the conversation can read it.",
     tech: ["Flutter", "Dart", "Signal Protocol", "MQTT"],
     highlights: [
@@ -131,6 +144,8 @@ export const projects: Project[] = [
   {
     title: "Fintech Remittance Platform",
     company: "Centiiv",
+    live: "https://www.centiiv.io",
+    liveLabel: "centiiv.io",
     problem:
       "Sending money at scale, for individuals and businesses, across borders and in line with financial regulations.",
     tech: ["Flutter", "Dart", "NestJS", "TypeScript"],
@@ -153,11 +168,27 @@ export const projects: Project[] = [
   },
 ];
 
-export const experience: { role: string; company: string; period: string; summary: string }[] = [
+export const experience: {
+  role: string;
+  company: string;
+  period: string;
+  type?: string;
+  summary: string;
+  // Public pages for the product, e.g. its app store listings.
+  links?: Link[];
+}[] = [
   {
-    role: "Mobile Engineer",
+    role: "Senior Mobile Engineer",
     company: "Busha",
     period: "Aug 2025 – Present",
+    type: "Full-time",
+    links: [
+      {
+        href: "https://apps.apple.com/ng/app/busha-make-your-money-better/id1450373493",
+        label: "App Store · 4.6★, 5k+ ratings",
+      },
+      { href: "https://play.google.com/store/apps/details?id=co.busha.android", label: "Google Play" },
+    ],
     summary:
       "Building and maintaining core Flutter features for crypto and financial transactions, with scalable UI components and robust API workflows across iOS and Android.",
   },
@@ -165,6 +196,7 @@ export const experience: { role: string; company: string; period: string; summar
     role: "Senior Software Developer",
     company: "Yousend Inc.",
     period: "Aug 2025 – Present",
+    type: "Full-time",
     summary:
       "Architected a clean-architecture mono-repo for 3+ payment teams and shipped cross-border flows with a 99.9% success rate, 40% faster feature delivery and 20% fewer crashes.",
   },

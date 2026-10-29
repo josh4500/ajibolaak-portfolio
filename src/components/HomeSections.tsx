@@ -108,7 +108,7 @@ export function Projects() {
               </span>
               <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
               <p className="mt-4 max-w-md leading-relaxed text-muted">{p.problem}</p>
-              {(p.repo || p.live || p.writeup) && (
+              {(p.repo || p.live || p.writeup || p.links) && (
                 <div className="mt-auto flex flex-wrap gap-3 pt-8 text-sm font-medium">
                   {p.repo && (
                     <a
@@ -129,6 +129,17 @@ export function Projects() {
                       Read the write-up
                     </Link>
                   )}
+                  {p.links?.map((l) => (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 transition hover:border-foreground"
+                    >
+                      {l.label} <ArrowUpRight className="h-4 w-4" aria-hidden />
+                    </a>
+                  ))}
                   {p.live && (
                     <a
                       href={p.live}
@@ -191,12 +202,33 @@ export function Experience() {
             delay={i * 80}
             className="grid gap-3 border-b border-border py-8 md:grid-cols-[200px_1fr_1fr] md:gap-10"
           >
-            <p className="font-mono text-xs tracking-wide text-muted uppercase md:pt-1.5">{job.period}</p>
+            <p className="font-mono text-xs tracking-wide text-muted uppercase md:pt-1.5">
+              {job.period}
+              {job.type && <span className="block pt-1 text-faint">{job.type}</span>}
+            </p>
             <div>
               <h3 className="text-xl font-semibold tracking-tight">{job.role}</h3>
               <p className="mt-1 text-muted">{job.company}</p>
             </div>
-            <p className="leading-relaxed text-muted">{job.summary}</p>
+            <div>
+              <p className="leading-relaxed text-muted">{job.summary}</p>
+              {job.links && (
+                <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs text-muted">
+                  {job.links.map((l) => (
+                    <li key={l.href}>
+                      <a
+                        href={l.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 underline-offset-4 transition hover:text-foreground hover:underline"
+                      >
+                        {l.label} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </Reveal>
         ))}
       </ol>
@@ -220,7 +252,7 @@ export function Contact() {
             Let&apos;s build something <em className="accent-serif">together</em>.
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-muted">
-            Have a mobile product, backend system or collaboration in mind?{" "}
+            Need a Flutter app or a backend built? I&apos;m open to remote contracts and work from {profile.timezone}.{" "}
             {profile.calendlyUrl ? "Book a call or send me an email." : "Email is the fastest way to reach me."}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -267,7 +299,7 @@ export function Contact() {
             {profile.resumeUrl && (
               <a
                 href={profile.resumeUrl}
-                download="Ajibola-Akinmosin-Resume.pdf"
+                download
                 className="inline-flex items-center gap-2 transition hover:text-foreground"
               >
                 <Download className="h-4 w-4" aria-hidden /> Résumé

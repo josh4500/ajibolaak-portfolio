@@ -33,11 +33,11 @@ Put images in `public/notes/` and reference them as `/notes/your-image.png`. Not
 
 ## Résumé
 
-The downloadable résumé (`public/resume.pdf`) is generated from **`resume/resume.html`**:
+The downloadable résumé (`public/Ajibola-Akinmosin-Resume.pdf`) is generated from **`resume/resume.html`**:
 
 1. Edit `resume/resume.html`.
 2. Run `npm run resume` (uses Google Chrome to print the PDF).
-3. Open `public/resume.pdf` to check it still fits on one page, then commit and push.
+3. Open `public/Ajibola-Akinmosin-Resume.pdf` to check it still fits on one page, then commit and push.
 
 The public version lists hello@ajibolaak.dev and the website instead of a phone number.
 

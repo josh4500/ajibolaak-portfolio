@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    // The résumé is named after its owner, so a saved copy keeps the name; keep the old address working.
+    return [{ source: "/resume.pdf", destination: "/Ajibola-Akinmosin-Resume.pdf", permanent: true }];
+  },
   async headers() {
     return [
       {

@@ -26,7 +26,7 @@ export function Hero() {
         <div className="relative z-10 max-w-4xl">
           <p className="hero-intro mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 font-mono text-[11px] tracking-widest text-muted uppercase backdrop-blur">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" aria-hidden />
-            {profile.role}
+            {profile.availability} · {profile.timezone}
           </p>
 
           <h1 className="text-5xl leading-[0.95] font-semibold tracking-[-0.04em] sm:text-7xl lg:text-[5.5rem]">
@@ -73,7 +73,7 @@ export function Hero() {
             {profile.resumeUrl && (
               <a
                 href={profile.resumeUrl}
-                download="Ajibola-Akinmosin-Resume.pdf"
+                download
                 className="group inline-flex items-center gap-2 px-3 py-3 text-sm font-medium text-muted transition hover:text-foreground"
               >
                 <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" aria-hidden />

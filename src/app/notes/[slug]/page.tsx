@@ -110,6 +110,10 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
           <p className="font-mono text-xs tracking-widest text-muted uppercase">Written by</p>
           <p className="mt-3 text-xl font-semibold tracking-tight">{profile.name}</p>
           <p className="mt-1 text-sm text-muted">{profile.role}</p>
+          <p className="mt-3 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-muted uppercase">
+            <span className="h-1.5 w-1.5 rounded-full bg-foreground" aria-hidden />
+            {profile.availability} · {profile.timezone}
+          </p>
           <p className="mt-4 max-w-xl leading-relaxed text-muted">{profile.intro}</p>
           <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium">
             {profile.calendlyUrl && (
