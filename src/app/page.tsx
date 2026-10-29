@@ -70,8 +70,8 @@ export default function Home() {
         <JsonLd data={personGraph()} />
         <Hero />
         <About />
-        <Skills />
         <Projects />
+        <Skills />
         <Experience />
         <LatestWriting />
         <Contact />

@@ -9,7 +9,7 @@ export const profile = {
   name: "Ajibola Akinmosin",
   role: "Senior Mobile & Full-Stack Engineer",
   intro:
-    "I build fintech, crypto and secure-messaging apps in Flutter, and the backends behind them in C# and TypeScript. Currently shipping mobile at Busha and Yousend.",
+    "I build fintech, crypto and secure-messaging mobile apps, in Flutter and native, and the backends behind them in C# and TypeScript. Currently shipping mobile at Busha and Yousend.",
   location: "Lagos, Nigeria",
   timezone: "WAT (UTC+1)",
   // What work you're open to; shown in the hero, the contact section and under each note.
@@ -35,6 +35,7 @@ export const skills: { category: string; icon: "mobile" | "backend" | "data"; it
     icon: "mobile",
     items: [
       "Flutter & Dart",
+      "Native iOS & Android (Swift, Kotlin)",
       "State Management (BLoC/Cubit)",
       "Clean Architecture & Dependency Injection",
       "iOS & Android Platform Integrations",

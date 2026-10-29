@@ -14,8 +14,8 @@ import { PAGE_TRANSITION } from "./PageTransition";
 const links = [
   { href: "/#home", label: "Home" },
   { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
   { href: "/#projects", label: "Projects" },
+  { href: "/#skills", label: "Skills" },
   { href: "/#experience", label: "Experience" },
   { href: "/notes", label: "Notes" },
   { href: "/#contact", label: "Contact" },

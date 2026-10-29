@@ -40,7 +40,7 @@ export function Skills() {
   return (
     <Section
       id="skills"
-      index="02"
+      index="03"
       label="Skills"
       title={
         <>
@@ -84,7 +84,7 @@ export function Projects() {
   return (
     <Section
       id="projects"
-      index="03"
+      index="02"
       label="Projects"
       title={
         <>
@@ -252,7 +252,7 @@ export function Contact() {
             Let&apos;s build something <em className="accent-serif">together</em>.
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-muted">
-            Need a Flutter app or a backend built? I&apos;m open to remote contracts and work from {profile.timezone}.{" "}
+            Need a mobile app or a backend built? I&apos;m open to remote contracts and work from {profile.timezone}.{" "}
             {profile.calendlyUrl ? "Book a call or send me an email." : "Email is the fastest way to reach me."}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
