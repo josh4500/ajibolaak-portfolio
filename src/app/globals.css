@@ -128,6 +128,46 @@ section[id] {
   }
 }
 
+/* Tech logo marquee (components/TechMarquee.tsx). Items are spaced with a right margin rather than a gap,
+   so the doubled track is exactly two equal halves and the -50% loop has no jump. */
+.tech-marquee-row {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.tech-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: tech-marquee var(--marquee-duration, 40s) linear infinite;
+}
+.tech-marquee-track > li {
+  margin-right: 0.75rem;
+}
+.tech-marquee-row[data-reverse] .tech-marquee-track {
+  animation-direction: reverse;
+}
+.tech-marquee-row:hover .tech-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes tech-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee-row {
+    mask-image: none;
+  }
+  .tech-marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+  .tech-marquee-track > [aria-hidden] {
+    display: none;
+  }
+}
+
 /* Hero entrance (components/Hero.tsx): each block rises in turn, once per visit. */
 @media (prefers-reduced-motion: no-preference) {
   html:not([data-intro-seen]) .hero-intro {

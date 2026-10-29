@@ -5,6 +5,7 @@ import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { Reveal } from "./Reveal";
 import { Section, Tag } from "./Section";
 import { PAGE_TRANSITION } from "./PageTransition";
+import { TechMarquee } from "./TechMarquee";
 
 const skillIcons = { mobile: Smartphone, backend: Server, data: Database };
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -49,6 +50,7 @@ export function Skills() {
       }
       intro="From the widget tree to the database: the tools I reach for to ship and scale."
     >
+      <TechMarquee />
       <div className="grid overflow-hidden rounded-2xl border border-border md:grid-cols-3">
         {skills.map((group, gi) => {
           const Icon = skillIcons[group.icon];
