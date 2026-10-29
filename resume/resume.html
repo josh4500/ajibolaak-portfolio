@@ -4,12 +4,15 @@
     <meta charset="utf-8" />
     <title>Ajibola Akinmosin — Résumé</title>
     <!-- Source for public/resume.pdf. Edit this file, then run `npm run resume`. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Static (single-weight) fonts from node_modules: Chrome embeds variable web fonts in the PDF as
+         Type 3 glyphs with no text mapping, which left the résumé unsearchable for people and hiring systems. -->
+    <link rel="stylesheet" href="../node_modules/@fontsource/inter/latin-400.css" />
+    <link rel="stylesheet" href="../node_modules/@fontsource/inter/latin-500.css" />
+    <link rel="stylesheet" href="../node_modules/@fontsource/inter/latin-600.css" />
+    <link rel="stylesheet" href="../node_modules/@fontsource/inter/latin-700.css" />
+    <link rel="stylesheet" href="../node_modules/@fontsource/jetbrains-mono/latin-400.css" />
+    <link rel="stylesheet" href="../node_modules/@fontsource/jetbrains-mono/latin-500.css" />
+    <link rel="stylesheet" href="../node_modules/@fontsource/instrument-serif/latin-400-italic.css" />
     <style>
       @page {
         size: A4;
