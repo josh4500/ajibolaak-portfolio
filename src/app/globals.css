@@ -8,7 +8,7 @@
   --surface: #fafafa;
   --foreground: #09090b;
   --muted: #52525b;
-  --faint: #8a8a93;
+  --faint: #71717a; /* 4.8:1 on white: readable for the small mono labels */
   --border: #e4e4e7;
   --accent: #09090b;
   --accent-contrast: #ffffff;
@@ -21,7 +21,7 @@
   --surface: #0e0e10;
   --foreground: #fafafa;
   --muted: #a1a1aa;
-  --faint: #6b6b73;
+  --faint: #83838c; /* 5.4:1 on the dark background */
   --border: #1f1f23;
   --accent: #fafafa;
   --accent-contrast: #09090b;
@@ -117,6 +117,14 @@ section[id] {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+/* Without JavaScript nothing marks sections as revealed, and print doesn't scroll them into view:
+   show them outright in both cases. */
+@media (scripting: none), print {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

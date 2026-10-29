@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { BlogList } from "@/components/BlogList";
-import { EmptyBlog } from "@/components/BlogCard";
 import { getMediumPosts, mediumProfileUrl } from "@/lib/medium";
+import { profile } from "@/data/profile";
 import { PageTransition } from "@/components/PageTransition";
+
+const description = "Articles on software development, published on Medium.";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Articles on software development, published on Medium.",
+  description,
   alternates: { canonical: "/blog" },
+  // The page's openGraph replaces the layout's (share image included), so repeat what it needs.
+  openGraph: {
+    type: "website",
+    title: "Blog",
+    description,
+    url: "/blog",
+    siteName: profile.name,
+    images: ["/opengraph-image"],
+  },
 };
 
 export default async function BlogPage() {
   const posts = await getMediumPosts();
+  // Until Medium has posts, send visitors to the notes rather than an empty page.
+  if (posts.length === 0) redirect("/notes");
 
   return (
     <PageTransition>
@@ -36,19 +50,17 @@ export default async function BlogPage() {
         </p>
 
         <div className="mt-14 border-t border-border pt-10">
-          {posts.length === 0 ? <EmptyBlog profileUrl={mediumProfileUrl} /> : <BlogList posts={posts} />}
+          <BlogList posts={posts} />
         </div>
 
-        {posts.length > 0 && (
-          <a
-            href={mediumProfileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-12 inline-flex rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
-          >
-            View all on Medium ↗
-          </a>
-        )}
+        <a
+          href={mediumProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-12 inline-flex rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
+        >
+          View all on Medium ↗
+        </a>
       </div>
     </PageTransition>
   );

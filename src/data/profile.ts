@@ -66,6 +66,8 @@ export type Project = {
   live?: string;
   // Text for the `live` link; defaults to "Live Demo".
   liveLabel?: string;
+  // An in-site write-up about the project, e.g. a note.
+  writeup?: string;
 };
 
 // Products built in professional roles (from the résumé). Add personal or open-source projects with repo/live links.
@@ -100,6 +102,7 @@ export const projects: Project[] = [
     repo: "https://github.com/josh4500/screenshot_guard",
     live: "https://pub.dev/packages/screenshot_shield",
     liveLabel: "pub.dev",
+    writeup: "/notes/keeping-a-card-number-out-of-iphone-screen-recordings",
   },
   {
     title: "Cross-Border Payments App",

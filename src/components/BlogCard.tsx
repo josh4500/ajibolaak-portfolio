@@ -55,19 +55,3 @@ export function BlogCard({ post }: { post: MediumPost }) {
     </a>
   );
 }
-
-export function EmptyBlog({ profileUrl }: { profileUrl: string }) {
-  return (
-    <div className="card-glow rounded-2xl border border-dashed border-border p-10 text-center">
-      <p className="text-muted">New articles are on the way.</p>
-      <a
-        href={profileUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-3 inline-block font-medium underline-offset-4 hover:underline"
-      >
-        Follow me on Medium ↗
-      </a>
-    </div>
-  );
-}

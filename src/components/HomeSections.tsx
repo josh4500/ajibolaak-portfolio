@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Database, Download, Mail, Server, Smartphone } from "lucide-react";
 import { experience, profile, projects, skills } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { Reveal } from "./Reveal";
 import { Section, Tag } from "./Section";
+import { PAGE_TRANSITION } from "./PageTransition";
 
 const skillIcons = { mobile: Smartphone, backend: Server, data: Database };
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -106,7 +108,7 @@ export function Projects() {
               </span>
               <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
               <p className="mt-4 max-w-md leading-relaxed text-muted">{p.problem}</p>
-              {(p.repo || p.live) && (
+              {(p.repo || p.live || p.writeup) && (
                 <div className="mt-auto flex flex-wrap gap-3 pt-8 text-sm font-medium">
                   {p.repo && (
                     <a
@@ -117,6 +119,15 @@ export function Projects() {
                     >
                       <GithubIcon className="h-4 w-4" /> Repository
                     </a>
+                  )}
+                  {p.writeup && (
+                    <Link
+                      href={p.writeup}
+                      transitionTypes={PAGE_TRANSITION}
+                      className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 transition hover:border-foreground"
+                    >
+                      Read the write-up
+                    </Link>
                   )}
                   {p.live && (
                     <a

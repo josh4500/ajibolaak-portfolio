@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { profile } from "@/data/profile";
 import { SocialLinks } from "./SocialLinks";
 import { ThemeToggle } from "./ThemeToggle";
@@ -17,10 +17,12 @@ const links = [
   { href: "/#skills", label: "Skills" },
   { href: "/#projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
-  { href: "/blog", label: "Blog" },
   { href: "/notes", label: "Notes" },
   { href: "/#contact", label: "Contact" },
 ];
+
+/** The résumé PDF opens in a new tab rather than as an in-site page. */
+const resumeLink = profile.resumeUrl ? { href: profile.resumeUrl, label: "Résumé" } : null;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -85,6 +87,18 @@ export function Navbar() {
                 </Link>
               </li>
             ))}
+            {resumeLink && (
+              <li>
+                <a
+                  href={resumeLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full px-3 py-2 text-sm text-muted transition hover:bg-accent-soft hover:text-foreground"
+                >
+                  {resumeLink.label}
+                </a>
+              </li>
+            )}
           </ul>
 
           <div className="flex items-center gap-1">
@@ -92,7 +106,7 @@ export function Navbar() {
               <SocialLinks size="h-[17px] w-[17px]" />
             </div>
             <ThemeToggle />
-            <div className="ml-1 hidden sm:block">
+            <div className="ml-1">
               <LetsTalk />
             </div>
             <button
@@ -139,8 +153,8 @@ export function Navbar() {
             <X className="h-5 w-5" aria-hidden />
           </button>
         </div>
-        <ol className="mt-8 flex-1">
-          {links.map((l, i) => (
+        <ul className="mt-8 flex-1">
+          {links.map((l) => (
             <li key={l.href} className="border-b border-border">
               <Link
                 href={l.href}
@@ -149,14 +163,27 @@ export function Navbar() {
                   setSnapShut(new URL(l.href, location.href).pathname !== pathname);
                   setOpen(false);
                 }}
-                className="flex items-baseline gap-4 py-4 text-2xl font-medium tracking-tight transition hover:pl-1"
+                className="block py-4 text-2xl font-medium tracking-tight transition hover:pl-1"
               >
-                <span className="font-mono text-xs text-faint">{String(i + 1).padStart(2, "0")}</span>
                 {l.label}
               </Link>
             </li>
           ))}
-        </ol>
+          {resumeLink && (
+            <li className="border-b border-border">
+              <a
+                href={resumeLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 py-4 text-2xl font-medium tracking-tight transition hover:pl-1"
+              >
+                {resumeLink.label}
+                <ArrowUpRight className="h-5 w-5 text-faint" aria-hidden />
+              </a>
+            </li>
+          )}
+        </ul>
         <div className="pt-6">
           <p className="mb-2 font-mono text-xs tracking-widest text-muted uppercase">Let&apos;s talk</p>
           <div className="-mx-3">

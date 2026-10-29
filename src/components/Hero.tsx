@@ -33,7 +33,7 @@ export function Hero() {
             {/* One block per line so each can rise on its own. */}
             <span className="hero-intro block">
               Crafting <em className="accent-serif whitespace-nowrap">mobile apps</em>
-            </span>
+            </span>{" "}
             <span className="hero-intro block text-faint" style={{ "--intro-step": 1 } as React.CSSProperties}>
               &amp; the systems behind them.
             </span>

@@ -52,7 +52,7 @@ export function LetsTalk() {
         <div
           id="lets-talk-menu"
           role="menu"
-          className="absolute top-full right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-border bg-background/95 p-1.5 shadow-2xl backdrop-blur-xl"
+          className="absolute top-full -right-12 mt-3 w-72 overflow-hidden sm:right-0 rounded-2xl border border-border bg-background/95 p-1.5 shadow-2xl backdrop-blur-xl"
         >
           <ContactOptions onSelect={() => setOpen(false)} />
         </div>

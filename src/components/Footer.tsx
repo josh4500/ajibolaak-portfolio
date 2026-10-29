@@ -18,7 +18,19 @@ export async function Footer() {
           <p>
             © {year} {profile.name}. All rights reserved.
           </p>
-          <SocialLinks size="h-4 w-4" />
+          <div className="flex items-center gap-5">
+            {profile.resumeUrl && (
+              <a
+                href={profile.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-foreground"
+              >
+                Résumé
+              </a>
+            )}
+            <SocialLinks size="h-4 w-4" />
+          </div>
         </div>
         {/* Oversized wordmark that bleeds off the bottom edge. */}
         <p

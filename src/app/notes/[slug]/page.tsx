@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
-import { ArrowLeft } from "lucide-react";
-import { dateFormat, getAllNoteSlugs, getNote } from "@/lib/notes";
+import { ArrowLeft, ArrowUpRight, CalendarDays, Mail } from "lucide-react";
+import { dateFormat, getAllNoteSlugs, getNote, getNotes } from "@/lib/notes";
 import { profile } from "@/data/profile";
 import { JsonLd } from "@/components/JsonLd";
 import { ListenToNote } from "@/components/ListenToNote";
@@ -48,6 +48,7 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
   if (!note) notFound();
   // Unique per note: Next keeps recently visited routes mounted (hidden), so several notes can be in the DOM.
   const bodyId = `note-body-${slug}`;
+  const hasOtherNotes = getNotes().some((n) => n.slug !== slug);
 
   return (
     <PageTransition>
@@ -104,17 +105,56 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
         {/* Note HTML is rendered from Markdown files in this repo at build time. */}
         <div id={bodyId} className="note-body prose-note mt-10" dangerouslySetInnerHTML={{ __html: note.html }} />
 
-        <footer className="mt-16 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted">
-            Written by <span className="text-foreground">{profile.name}</span>
-          </p>
-          <Link
-            href="/notes"
-            transitionTypes={PAGE_TRANSITION}
-            className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:border-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden /> More notes
-          </Link>
+        {/* Notes are often a visitor's first page, so end with who wrote it and how to get in touch. */}
+        <footer className="card-glow mt-16 rounded-2xl border border-border p-6 sm:p-8">
+          <p className="font-mono text-xs tracking-widest text-muted uppercase">Written by</p>
+          <p className="mt-3 text-xl font-semibold tracking-tight">{profile.name}</p>
+          <p className="mt-1 text-sm text-muted">{profile.role}</p>
+          <p className="mt-4 max-w-xl leading-relaxed text-muted">{profile.intro}</p>
+          <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium">
+            {profile.calendlyUrl && (
+              <a
+                href={profile.calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-accent-contrast transition hover:opacity-85"
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden /> Book a call
+              </a>
+            )}
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 transition hover:border-foreground"
+            >
+              <Mail className="h-4 w-4" aria-hidden /> Email
+            </a>
+            <Link
+              href="/#projects"
+              transitionTypes={PAGE_TRANSITION}
+              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 transition hover:border-foreground"
+            >
+              See my work
+            </Link>
+            {profile.resumeUrl && (
+              <a
+                href={profile.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 transition hover:border-foreground"
+              >
+                Résumé <ArrowUpRight className="h-4 w-4" aria-hidden />
+              </a>
+            )}
+          </div>
+          {hasOtherNotes && (
+            <Link
+              href="/notes"
+              transitionTypes={PAGE_TRANSITION}
+              className="mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-muted uppercase transition hover:text-foreground"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden /> More notes
+            </Link>
+          )}
         </footer>
       </article>
     </PageTransition>
